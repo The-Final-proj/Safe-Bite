@@ -1,12 +1,13 @@
 const mongoose = require("mongoose")
 const dependent = new mongoose.Schema({
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
-    relation: {type: String},
-    name: {type: String, required: true}
+    name: {type: String, required: true},
+    relation: String
+
 })
 
 module.exports = mongoose.model("Dependent", dependent)
