@@ -1,6 +1,6 @@
 const Product = require("../models/productSchema");
 
-// CREATE PRODUCT
+// ========================= CREATE PRODUCT
 const createProduct = async (req, res) => {
   try {
     const {
@@ -24,7 +24,7 @@ const createProduct = async (req, res) => {
       freeFrom: freeFrom ? JSON.parse(freeFrom) : [],
       customAllergens: customAllergens ? JSON.parse(customAllergens) : [],
       image: req.file ? req.file.path : "",
-      supplier: req.user?.id,
+      supplier: req.user._id,
     });
 
     res.status(201).json(product);
@@ -33,49 +33,88 @@ const createProduct = async (req, res) => {
   }
 };
 
-// GET ALL
+// ========================= GET ALL PRODUCTS
 const getProducts = async (req, res) => {
-  const products = await Product.find();
-  res.json(products);
-};
-
-// GET BY ID
-const getProductById = async (req, res) => {
-  const product = await Product.findById(req.params.id);
-  res.json(product);
-};
-
-// UPDATE
-const updateProduct = async (req, res) => {
-  const product = await Product.findById(req.params.id);
-
-  if (!product) return res.status(404).json({ message: "Not found" });
-
-  Object.assign(product, req.body);
-
-  if (req.file) product.image = req.file.path;
-
-  await product.save();
-
-  res.json(product);
-};
-
-// DELETE
-const deleteProduct = async (req, res) => {
-  await Product.findByIdAndDelete(req.params.id);
-  res.json({ message: "Deleted" });
-};
-
-// SEARCH
-const searchProducts = async (req, res) => {
   try {
     const { search } = req.query;
 
-    const products = await Product.find({
-      name: { $regex: search || "", $options: "i" },
-    });
+    const filter = search
+      ? { name: { $regex: search, $options: "i" } }
+      : {};
 
-    res.json(products);
+    const products = await Product.find(filter);
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ========================= GET PRODUCT BY ID
+const getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Not found" });
+    }
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ========================= UPDATE PRODUCT
+const updateProduct = async (req, res) => {
+  try {
+    const updateData = { ...req.body };
+
+    if (req.file) {
+      updateData.image = req.file.path;
+    }
+
+    if (updateData.allergens) {
+      updateData.allergens = JSON.parse(updateData.allergens);
+    }
+
+    if (updateData.freeFrom) {
+      updateData.freeFrom = JSON.parse(updateData.freeFrom);
+    }
+
+    if (updateData.customAllergens) {
+      updateData.customAllergens = JSON.parse(updateData.customAllergens);
+    }
+
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!product) {
+      return res.status(404).json({ message: "Not found" });
+    }
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ========================= DELETE PRODUCT
+const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Not found" });
+    }
+
+    res.status(200).json({ message: "Deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -87,5 +126,4 @@ module.exports = {
   getProductById,
   updateProduct,
   deleteProduct,
-  searchProducts,
 };

@@ -1,23 +1,40 @@
 const Product = require("../models/productSchema");
 
+// ========================= GET MY PRODUCTS
 const getMyProducts = async (req, res) => {
-  const products = await Product.find({ supplier: req.user.id });
-  res.json(products);
+  try {
+    const products = await Product.find({ supplier: req.user._id });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
+// ========================= SUPPLIER PROFILE
 const supplierProfile = async (req, res) => {
-  res.json({
-    userId: req.user.id,
-    role: req.user.role,
-  });
+  try {
+    res.status(200).json({
+      userId: req.user._id,
+      role: req.user.role,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
+// ========================= SUPPLIER STATS
 const supplierStats = async (req, res) => {
-  const totalProducts = await Product.countDocuments({
-    supplier: req.user.id,
-  });
+  try {
+    const totalProducts = await Product.countDocuments({
+      supplier: req.user._id,
+    });
 
-  res.json({ totalProducts });
+    res.status(200).json({
+      totalProducts,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 module.exports = {

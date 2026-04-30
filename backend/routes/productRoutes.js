@@ -6,7 +6,6 @@ const {
   getProductById,
   updateProduct,
   deleteProduct,
-  searchProducts,
 } = require("../controllers/productController");
 
 const upload = require("../middleware/upload");
@@ -14,11 +13,8 @@ const upload = require("../middleware/upload");
 // CREATE PRODUCT
 router.post("/", upload.single("image"), createProduct);
 
-// GET ALL PRODUCTS
+// GET ALL + SEARCH (/?search=milk)
 router.get("/", getProducts);
-
-// SEARCH
-router.get("/search", searchProducts);
 
 // GET ONE
 router.get("/:id", getProductById);
