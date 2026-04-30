@@ -13,7 +13,7 @@ const cartSchema = new mongoose.Schema({
             productId: mongoose.Schema.Types.ObjectId,
             ref: "Product"
         },
-        quantity: {type: Number, required: true}
+        quantity: {type: Number, default: 0}
     }],
 
     total: {type: Number, default: 0}

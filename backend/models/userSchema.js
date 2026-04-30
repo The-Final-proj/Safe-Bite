@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 
 // import required models
-const dependentModel = require("./dependentSchema")
+const cartModel = require("./cartSchema")
 
 const userSchema = new mongoose.Schema({
     username: {type: String, required: true, unique: true},
@@ -29,6 +29,13 @@ userSchema.post("save", async function() {
     try {
         this.dependent = []
         await this.save()
+
+        const cart = await new cartModel({
+            userId: this._id,
+            items: []
+        })
+
+        await cart.save()
     }
 
     catch(err) {
