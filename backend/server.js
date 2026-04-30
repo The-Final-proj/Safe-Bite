@@ -1,29 +1,12 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const path = require("path");
-const cors = require("cors");
+require("dotenv").config()
+const express = require("express")
+const app = express()
+app.use(express.json())
+const db = require("./models/db")
 
-dotenv.config();
+const apiRouter = require("../backend/routes/api")
+app.use("/api", apiRouter)
 
-const app = express();
-
-// middleware
-app.use(cors());
-app.use(express.json());
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// DB connection
-require("./models/db");
-
-// routes
-app.use("/products", require("./routes/productRoutes"));
-app.use("/supplier", require("./routes/supplierRoutes"));
-app.use("/upload", require("./routes/uploadRoutes"));
-
-// error handler
-app.use(require("./middleware/errorHandler"));
-
-// server
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-});
+app.listen(process.env.PORT, () => {
+    console.log(`app running on port ${process.env.PORT}`)
+})
