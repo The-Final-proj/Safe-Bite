@@ -15,9 +15,11 @@ const userSchema = new mongoose.Schema({
         enum: ["supplier", "admin", "user"],
         default: "user"
     }, 
-    dependent: [{
-        member: mongoose.Schema.Types.ObjectId
-    }]
+    dependent: {
+            type: [{
+            member: mongoose.Schema.Types.ObjectId
+        }], default: []
+    }
 })
 
 userSchema.pre("save", async function(){
@@ -27,9 +29,6 @@ userSchema.pre("save", async function(){
 
 userSchema.post("save", async function() {
     try {
-        this.dependent = []
-        await this.save()
-
         const cart = await new cartModel({
             userId: this._id,
             items: []
