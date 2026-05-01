@@ -6,12 +6,12 @@ const userRouter = require("./userRoutes")
 const productRouter = require("./productRoutes");
 const supplierRouter = require("./supplierRoutes");
 const uploadRouter = require("./uploadRoutes");
-
+const reviewRouter = require("./reviewRoutes")
 const cartRouter = require('./cartRoutes')
 const orderRoutes = require("./orderRoutes");
 
 
-
+apiRouter.use("/reviews", reviewRouter)
 apiRouter.use("/users", userRouter)
 apiRouter.use("/products", productRouter);
 apiRouter.use("/supplier", supplierRouter);
