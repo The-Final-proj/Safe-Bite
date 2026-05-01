@@ -1,7 +1,7 @@
 const reviewModel = require("../models/reviewSchema")
 
 const addReview = async (req, res) => { // post (product/:productId/reviews)
-    const userId = req.user._id || req.params.userId
+    const userId = req.user?._id || req.params.userId
     const {productId} = req.params
     const {rating, comment} = req.body
     try {
@@ -36,6 +36,7 @@ const getReview = async (req, res) => { // get (reviews/:reviewId)
 
 const getProductReviews = async (req, res) => { // get (product/:productId/reviews) all reviews for a single product
     const {productId} = req.params
+    console.log(productId)
     try {
         const reviews = await reviewModel.find({product: productId}).populate("user product")
         if (!reviews.length) {
@@ -53,13 +54,14 @@ const getProductReviews = async (req, res) => { // get (product/:productId/revie
  
 const updateReview = async (req, res) => { // patch (/reviews/:reviewId)
     const {reviewId} = req.params;
+    const userId = req.user?._id || req.params.userId
     try {
         const review = await reviewModel.findById(reviewId)
         if (!review) {
             return res.status(404).json("review not found")
         }
 
-        if (review.user.toString() !== req.user._id && req.user.role !== "admin")
+        if (review.user.toString() !== userId && req.user?.role !== "admin")
             return res.status(403).json("not authorized")
 
         const updated = await reviewModel.findByIdAndUpdate(reviewId, {$set: req.body}, {new: true, runValidators: true})
@@ -73,13 +75,14 @@ const updateReview = async (req, res) => { // patch (/reviews/:reviewId)
 
 const deleteReview = async (req, res) => { // delete (/reviews/:reviewId)
     const {reviewId} = req.params;
+    const userId = req.user?._id || req.params.userId
     try {
         const review = await reviewModel.findById(reviewId)
         if (!review) {
             return res.status(404).json("review not found")
         }
 
-        if (review.user.toString() !== req.user._id && req.user.role !== "admin") {
+        if (review.user.toString() !== userId && req.user?.role !== "admin") {
             return res.status(403).json("not authorized")
         }
 
