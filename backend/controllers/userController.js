@@ -60,7 +60,7 @@ const getUsers = (req, res) => {
 }
 
 const getUserData = async (req, res) => {
-    const id = req.user._id || req.params.id // req.user._id => when user wants to access their account, req.params.id => when authorized members want to access certain account
+    const id = req.user?._id || req.params.id // req.user._id => when user wants to access their account, req.params.id => when authorized members want to access certain account
     try {
         const user = await userModel.findById(id).select("-password")
         if (!user) {
@@ -76,7 +76,7 @@ const getUserData = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    const id = req.user._id || req.params.id
+    const id = req.user?._id || req.params.id
     try {
         const user = await userModel.findByIdAndUpdate(id, {$set: req.body}, {new: true})
         if (!user) {

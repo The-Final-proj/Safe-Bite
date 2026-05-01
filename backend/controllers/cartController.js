@@ -1,9 +1,10 @@
 const cartModel = require("../models/cartSchema")
+const productModel = require("../models/productSchema")
 
 const getCart = async (req, res) => {
-    const userId = req.user._id || req.params.userId
+    const userId = req.user?._id || req.params.userId
     try {
-        const cart = await cartModel.findOne({userId: userId}).populate("user items.product")
+        const cart = await cartModel.findOne({userId: userId}).populate("userId items.product")
         if (!cart) {
             return res.status(404).json("no cart found for this user or user not found")
         }
@@ -17,10 +18,13 @@ const getCart = async (req, res) => {
 }
 
 const addToCart = async (req, res) => {
-    const userId = req.user._id || req.params.userId 
+    const userId = req.user?._id || req.params.userId 
+    console.log(userId)
     const { productId } = req.params
+    console.log(productId)
     try {
         const cart = await cartModel.findOne({userId: userId})
+        console.log(cart)
         if (!cart) {
             return res.status(404).json("no cart found for this user or user not found")
         }
@@ -45,7 +49,7 @@ const addToCart = async (req, res) => {
             })
         }     
                
-        cart.total += product.price;
+        cart.total += product.price || 0;
         const saved = await cart.save()
         await saved.populate("items.product")
         res.status(200).json(saved) 
@@ -58,7 +62,7 @@ const addToCart = async (req, res) => {
 }
 
 const incrementProductCount = async (req, res) => {
-    const userId = req.user._id || req.params.userId 
+    const userId = req.user?._id || req.params.userId 
     const { productId } = req.params
     try {
         const cart = await cartModel.findOne({userId: userId})
@@ -96,7 +100,7 @@ const incrementProductCount = async (req, res) => {
 }
 
 const decrementProductCount = async (req, res) => {
-    const userId = req.user._id || req.params.userId 
+    const userId = req.user?._id || req.params.userId 
     const { productId } = req.params
     try {
         const cart = await cartModel.findOne({userId: userId})
@@ -139,7 +143,7 @@ const decrementProductCount = async (req, res) => {
 }
 
 const removeProduct = async (req, res) => {
-    const userId = req.user._id || req.params.userId 
+    const userId = req.user?._id || req.params.userId 
     const { productId } = req.params
     try {
         const cart = await cartModel.findOne({userId: userId})
