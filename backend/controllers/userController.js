@@ -3,15 +3,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const register = (req, res) => {
-  const { username, email, password, firstName, lastName } = req.body;
-  const user = new userModel({
-    username, email, password, firstName, lastName
-  });
+    const { username, email, password, firstName, lastName } = req.body;
+    const user = new userModel({
+        username, email, password, firstName, lastName
+    });
 
-  user.save().then((result) => {
-      res.status(201).json(result);
-    }).catch((err) => {
-      res.status(500).json(err);
+    user.save().then((result) => {
+        res.status(201).json(result);
+     }).catch((err) => {
+        res.status(500).json(err);
     })
 }
 
