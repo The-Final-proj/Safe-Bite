@@ -16,9 +16,8 @@ const userSchema = new mongoose.Schema({
         default: "user"
     }, 
     dependent: {
-            type: [{
-            member: mongoose.Schema.Types.ObjectId
-        }], default: []
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dependent" }],
+        default: []
     }
 })
 

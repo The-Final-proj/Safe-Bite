@@ -6,7 +6,7 @@ const register = (req, res) => {
     const { username, email, password, firstName, lastName } = req.body;
     const user = new userModel({
         username, email, password, firstName, lastName
-    });
+    })
 
     user.save().then((result) => {
         res.status(201).json(result);
@@ -54,19 +54,22 @@ const login = async (req, res) => {
     catch (err) {
         res.status(500).json(err.message);
     }
-};
+}
 
-const getUsers = (req, res) => {
-  userModel
-    .find({}).then((result) => {
-      res.status(200).json(res);
-    }).catch(err);
+const getUsers = async (req, res) => {
+    try {
+        const users = await userModel.find({}).populate("dependent")
+        res.status(200).json(users)
+    }
+    catch(err) {
+        res.status(500).json(err)
+    }
 }
 
 const getUserData = async (req, res) => {
     const id = req.user?._id || req.params.id // req.user._id => when user wants to access their account, req.params.id => when authorized members want to access certain account
     try {
-        const user = await userModel.findById(id).select("-password")
+        const user = await userModel.findById(id).select("-password").populate("dependent")
         if (!user) {
             return res.status(404).json("user not found")
         }
@@ -85,15 +88,11 @@ const updateUser = async (req, res) => {
         if (!user) {
             return res.status(404).json("user not found")
         }
-
-        const saved = await user.save()
-        res.status(200).json(saved)
+        res.status(200).json(user)
     }
     catch (err) {
         res.status(500).json(err);
     } 
-    const saved = await user.save();
-    res.status(200).json(saved);
 }
 
 module.exports = { register, login, getUserData, getUsers, updateUser };
