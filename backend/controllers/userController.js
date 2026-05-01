@@ -5,22 +5,15 @@ const jwt = require("jsonwebtoken");
 const register = (req, res) => {
   const { username, email, password, firstName, lastName } = req.body;
   const user = new userModel({
-    username,
-    email,
-    password,
-    firstName,
-    lastName,
+    username, email, password, firstName, lastName
   });
 
-  user
-    .save()
-    .then((result) => {
+  user.save().then((result) => {
       res.status(201).json(result);
-    })
-    .catch((err) => {
+    }).catch((err) => {
       res.status(500).json(err);
-    });
-};
+    })
+}
 
 
 const login = async (req, res) => {
@@ -49,30 +42,28 @@ const login = async (req, res) => {
     );
 
     res.json({
-      message: "logged in successfully",
-      token,
-      user: {
-        _id: user._id,
-        name: user.username,
-        role: user.role,
-      },
-    });
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
+        message: "logged in successfully",
+        token,
+        user: {
+            _id: user._id,
+            name: user.username,
+            role: user.role,
+            },
+        })
+    } 
+    catch (err) {
+        res.status(500).json(err.message);
+    }
 };
 
 const getUsers = (req, res) => {
   userModel
-    .find({})
-    .then((result) => {
+    .find({}).then((result) => {
       res.status(200).json(res);
-    })
-    .catch(err);
-};
+    }).catch(err);
+}
 
 const getUserData = async (req, res) => {
-<<<<<<< HEAD
     const id = req.user?._id || req.params.id // req.user._id => when user wants to access their account, req.params.id => when authorized members want to access certain account
     try {
         const user = await userModel.findById(id).select("-password")
@@ -81,23 +72,13 @@ const getUserData = async (req, res) => {
         }
 
         res.status(200).json(user)
-=======
-  const id = req.user._id || req.params.id; // req.user._id => when user wants to access their account, req.params.id => when authorized members want to access certain account
-  try {
-    const user = await userModel.findById(id).select("-password");
-    if (!user) {
-      return res.status(404).json("user not found");
->>>>>>> 860ea8d36b78154f6c2a8b0f0057663ff06a6fea
     }
-
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(500).json(err);
+    catch (err) {
+        res.status(500).json(err);
   }
-};
+}
 
 const updateUser = async (req, res) => {
-<<<<<<< HEAD
     const id = req.user?._id || req.params.id
     try {
         const user = await userModel.findByIdAndUpdate(id, {$set: req.body}, {new: true})
@@ -107,24 +88,12 @@ const updateUser = async (req, res) => {
 
         const saved = await user.save()
         res.status(200).json(saved)
-=======
-  const id = req.user._id || req.params.id;
-  try {
-    const user = await userModel.findByIdAndUpdate(
-      id,
-      { $set: req.body },
-      { new: true },
-    );
-    if (!user) {
-      return res.status(404).json("user not found");
->>>>>>> 860ea8d36b78154f6c2a8b0f0057663ff06a6fea
     }
-
+    catch (err) {
+        res.status(500).json(err);
+    } 
     const saved = await user.save();
     res.status(200).json(saved);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
+}
 
 module.exports = { register, login, getUserData, getUsers, updateUser };
