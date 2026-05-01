@@ -9,7 +9,7 @@ const uploadRouter = require("./uploadRoutes");
 const reviewRouter = require("./reviewRoutes")
 const cartRouter = require('./cartRoutes')
 const orderRoutes = require("./orderRoutes");
-
+const favoritesRouter = require("./favoritesRoutes")
 
 apiRouter.use("/reviews", reviewRouter)
 apiRouter.use("/users", userRouter)
@@ -18,4 +18,6 @@ apiRouter.use("/supplier", supplierRouter);
 apiRouter.use("/upload", uploadRouter);
 apiRouter.use("/cart", cartRouter)
 apiRouter.use("/orders", orderRoutes);
+apiRouter.use("/favorites", favoritesRouter)
+
 module.exports = apiRouter;
