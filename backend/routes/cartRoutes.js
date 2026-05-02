@@ -4,12 +4,12 @@ const cartRouter = express.Router();
 
 cartRouter.get("/", getCart)
 cartRouter.get("/:userId", getCart)
-cartRouter.patch("/:productId", addToCart)
-cartRouter.patch("/:userId/:productId", addToCart)
-cartRouter.patch("/:productId", incrementProductCount)
-cartRouter.patch("/:userId", incrementProductCount)
-cartRouter.patch("/:productId", decrementProductCount)
-cartRouter.patch("/:userId/:productId", decrementProductCount)
+cartRouter.post("/:productId", addToCart)
+cartRouter.post("/:userId/:productId", addToCart)
+cartRouter.patch("/increase/:productId", incrementProductCount)
+cartRouter.patch("/increase/:userId/:productId", incrementProductCount)
+cartRouter.patch("/decrease/:productId", decrementProductCount)
+cartRouter.patch("/decrease/:userId/:productId", decrementProductCount)
 cartRouter.delete("/:productId", removeProduct)
 cartRouter.delete("/:userId/:productId", removeProduct)
 

@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt")
 
 // import required models
 const cartModel = require("./cartSchema")
+const favoritesModel = require("./favoritesSchema")
 
 const userSchema = new mongoose.Schema({
     username: {type: String, required: true, unique: true},
@@ -16,9 +17,8 @@ const userSchema = new mongoose.Schema({
         default: "user"
     }, 
     dependent: {
-            type: [{
-            member: mongoose.Schema.Types.ObjectId
-        }], default: []
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dependent" }],
+        default: []
     }
 })
 
@@ -33,8 +33,13 @@ userSchema.post("save", async function() {
             userId: this._id,
             items: []
         })
+        const favorites = await new favoritesModel({
+            userId: this._id,
+            items: []
+        })
 
         await cart.save()
+        await favorites.save()
     }
 
     catch(err) {

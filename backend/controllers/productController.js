@@ -24,7 +24,7 @@ const createProduct = async (req, res) => {
       freeFrom: freeFrom ? JSON.parse(freeFrom) : [],
       customAllergens: customAllergens ? JSON.parse(customAllergens) : [],
       image: req.file ? req.file.path : "",
-      supplier: req.user._id,
+      supplier: req.user?._id || req.body.supplier,
     });
 
     res.status(201).json(product);

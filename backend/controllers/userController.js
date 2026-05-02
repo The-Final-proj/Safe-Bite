@@ -3,24 +3,17 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const register = (req, res) => {
-  const { username, email, password, firstName, lastName } = req.body;
-  const user = new userModel({
-    username,
-    email,
-    password,
-    firstName,
-    lastName,
-  });
-
-  user
-    .save()
-    .then((result) => {
-      res.status(201).json(result);
+    const { username, email, password, firstName, lastName } = req.body;
+    const user = new userModel({
+        username, email, password, firstName, lastName
     })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
-};
+
+    user.save().then((result) => {
+        res.status(201).json(result);
+     }).catch((err) => {
+        res.status(500).json(err);
+    })
+}
 
 
 const login = async (req, res) => {
@@ -49,59 +42,57 @@ const login = async (req, res) => {
     );
 
     res.json({
-      message: "logged in successfully",
-      token,
-      user: {
-        _id: user._id,
-        name: user.username,
-        role: user.role,
-      },
-    });
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
-};
+        message: "logged in successfully",
+        token,
+        user: {
+            _id: user._id,
+            name: user.username,
+            role: user.role,
+            },
+        })
+    } 
+    catch (err) {
+        res.status(500).json(err.message);
+    }
+}
 
-const getUsers = (req, res) => {
-  userModel
-    .find({})
-    .then((result) => {
-      res.status(200).json(res);
-    })
-    .catch(err);
-};
+const getUsers = async (req, res) => {
+    try {
+        const users = await userModel.find({}).populate("dependent")
+        res.status(200).json(users)
+    }
+    catch(err) {
+        res.status(500).json(err)
+    }
+}
 
 const getUserData = async (req, res) => {
-  const id = req.user._id || req.params.id; // req.user._id => when user wants to access their account, req.params.id => when authorized members want to access certain account
-  try {
-    const user = await userModel.findById(id).select("-password");
-    if (!user) {
-      return res.status(404).json("user not found");
-    }
+    const id = req.user?._id || req.params.id // req.user._id => when user wants to access their account, req.params.id => when authorized members want to access certain account
+    try {
+        const user = await userModel.findById(id).select("-password").populate("dependent")
+        if (!user) {
+            return res.status(404).json("user not found")
+        }
 
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(500).json(err);
+        res.status(200).json(user)
+    }
+    catch (err) {
+        res.status(500).json(err);
   }
-};
+}
 
 const updateUser = async (req, res) => {
-  const id = req.user._id || req.params.id;
-  try {
-    const user = await userModel.findByIdAndUpdate(
-      id,
-      { $set: req.body },
-      { new: true },
-    );
-    if (!user) {
-      return res.status(404).json("user not found");
+    const id = req.user?._id || req.params.id
+    try {
+        const user = await userModel.findByIdAndUpdate(id, {$set: req.body}, {new: true})
+        if (!user) {
+            return res.status(404).json("user not found")
+        }
+        res.status(200).json(user)
     }
-
-    const saved = await user.save();
-    res.status(200).json(saved);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
+    catch (err) {
+        res.status(500).json(err);
+    } 
+}
 
 module.exports = { register, login, getUserData, getUsers, updateUser };
