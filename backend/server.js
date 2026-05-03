@@ -1,19 +1,47 @@
-require("dotenv").config()
-const express = require("express")
+require("dotenv").config();
+const express = require("express");
 const path = require("path");
 
-const app = express()
-app.use(express.json())
+const app = express();
+
+// ======================
+// Stripe Webhook (IMPORTANT)
+// لازم يكون قبل express.json()
+// ======================
+app.use(
+  "/api/payment/webhook",
+  express.raw({ type: "application/json" })
+);
+
+// ======================
+// JSON Parser
+// ======================
+app.use(express.json());
+
+// ======================
+// Static files
+// ======================
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const db = require("./models/db")
+// ======================
+// DB connection
+// ======================
+const db = require("./models/db");
 
-const apiRouter = require("../backend/routes/api")
-app.use("/api", apiRouter)
+// ======================
+// Routes
+// ======================
+const apiRouter = require("../backend/routes/api");
+app.use("/api", apiRouter);
 
+// ======================
+// Error handler
+// ======================
 app.use(require("./middleware/errorHandler"));
 
+// ======================
+// Server
+// ======================
 app.listen(process.env.PORT, () => {
-    console.log(`app running on port ${process.env.PORT}`)
-})
-
+  console.log(`app running on port ${process.env.PORT}`);
+});

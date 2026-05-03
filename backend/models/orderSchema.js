@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema(
 
     supplier: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // ✅ FIXED
+      ref: "User",
       required: true,
     },
 
@@ -51,8 +51,17 @@ const orderSchema = new mongoose.Schema(
       enum: ["unpaid", "paid"],
       default: "unpaid",
     },
+    paymentDate: {
+      type: Date,
+      default: null,
+    },
+
+    stripeSessionId: {
+      type: String,
+      default: null,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Order", orderSchema);

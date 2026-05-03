@@ -2,6 +2,7 @@ const Product = require("../models/productSchema");
 
 // ========================= CREATE PRODUCT
 const createProduct = async (req, res) => {
+ console.log("USER:", req.user);
   try {
     const {
       name,

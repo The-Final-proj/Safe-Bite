@@ -13,6 +13,8 @@ const cartRouter = require('./cartRoutes')
 const orderRoutes = require("./orderRoutes");
 const favoritesRouter = require("./favoritesRoutes")
 const authorization = require("../middleware/authorizeRole")
+const paymentRoutes = require("./paymentRoutes");
+
 
 apiRouter.use("/reviews", reviewRouter)
 apiRouter.use("/users", userRouter)
@@ -22,5 +24,5 @@ apiRouter.use("/upload", authentication, authorization("admin", "supplier"), upl
 apiRouter.use("/cart", authentication, authorization("user", "admin"), cartRouter)
 apiRouter.use("/orders", authentication, authorization("user", "admin"), orderRoutes);
 apiRouter.use("/favorites", authentication, authorization("user", "admin"), favoritesRouter)
-
+apiRouter.use("/payment", paymentRoutes);
 module.exports = apiRouter;
