@@ -20,6 +20,12 @@ const getCart = async (req, res) => {
 const addToCart = async (req, res) => {
     const userId = req.user?._id || req.params.userId 
     const { productId } = req.params
+    const quantity = Number(req.query.quantity) || 1
+
+    if (qunatity <= 0) {
+        return res.status(400).json("quantity must be greater than 0")
+    }
+
     try {
         const cart = await cartModel.findOne({userId: userId})
         console.log(cart)
@@ -37,16 +43,17 @@ const addToCart = async (req, res) => {
         })
 
         if (productInCart) {
-            productInCart.quantity += 1;
+            productInCart.quantity += quantity;
         }
 
         else {
             cart.items.push({
-                product: productId, quantity: 1 
+                product: productId, quantity: quantity 
             })
         }     
                
-        cart.total += product.price || 0;
+        cart.total += (product.price * quantity);
+        cart.total = Number(cart.total.toFixed(2))
         const saved = await cart.save()
         await saved.populate("items.product")
         res.status(200).json(saved) 
