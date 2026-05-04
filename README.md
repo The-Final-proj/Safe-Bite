@@ -27,7 +27,6 @@ SafeBite/
 │   │   ├── adminSchema.js
 │   │   ├── dependentSchema.js
 │   │   ├── productSchema.js
-│   │   ├── categorySchema.js
 │   │   ├── cartSchema.js
 │   │   ├── orderSchema.js
 │   │   ├── reviewSchema.js

@@ -2,18 +2,47 @@ const userModel = require("../models/userSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const register = (req, res) => {
-    const { username, email, password, firstName, lastName } = req.body;
-    const user = new userModel({
-        username, email, password, firstName, lastName
-    })
+const register = async (req, res) => {
+    try {
+        const { username, email, password, firstName, lastName } = req.body;
 
-    user.save().then((result) => {
-        res.status(201).json(result);
-     }).catch((err) => {
-        res.status(500).json(err);
-    })
-}
+        // role logic
+        const requestedRole = req.body.role;
+
+        let role = "user"; // default
+
+        // السماح فقط بـ supplier
+        if (requestedRole === "supplier") {
+            role = "supplier";
+        }
+
+        // منع admin نهائيًا
+        if (requestedRole === "admin") {
+            return res.status(403).json({
+                message: "You are not allowed to register as admin"
+            });
+        }
+
+        const user = new userModel({
+            username,
+            email,
+            password,
+            firstName,
+            lastName,
+            role
+        });
+
+        await user.save();
+
+        res.status(201).json({
+            message: "User created successfully",
+            user
+        });
+
+    } catch (err) {
+        res.status(500).json(err.message);
+    }
+};
 
 
 const login = async (req, res) => {

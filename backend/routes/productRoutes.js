@@ -9,20 +9,39 @@ const {
 } = require("../controllers/productController");
 
 const upload = require("../middleware/upload");
+const authentication = require("../middleware/auth");
+const authorization = require("../middleware/authorizeRole");
 
 // CREATE PRODUCT
-router.post("/", upload.single("image"), createProduct);
+router.post(
+  "/",
+  authentication,
+  authorization("supplier", "admin"),
+  upload.single("image"),
+  createProduct
+);
 
-// GET ALL + SEARCH (/?search=milk)
+// GET ALL + SEARCH
 router.get("/", getProducts);
 
 // GET ONE
 router.get("/:id", getProductById);
 
 // UPDATE
-router.put("/:id", upload.single("image"), updateProduct);
+router.put(
+  "/:id",
+  authentication,
+  authorization("supplier", "admin"),
+  upload.single("image"),
+  updateProduct
+);
 
 // DELETE
-router.delete("/:id", deleteProduct);
+router.delete(
+  "/:id",
+  authentication,
+  authorization("supplier", "admin"),
+  deleteProduct
+);
 
 module.exports = router;
