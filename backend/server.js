@@ -5,8 +5,7 @@ const path = require("path");
 const app = express();
 
 // ======================
-// Stripe Webhook (IMPORTANT)
-// لازم يكون قبل express.json()
+// Stripe Webhook (IMPORTANT - MUST BE BEFORE express.json)
 // ======================
 app.use(
   "/api/payment/webhook",
