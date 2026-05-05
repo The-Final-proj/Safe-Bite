@@ -140,7 +140,6 @@ SafeBite/
 │   │   ├── images/
 │   │   └── logo.png
 │   │
-│   ├── .env.local
 │   ├── next.config.js
 │   └── package.json
 │
