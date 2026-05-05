@@ -1,16 +1,17 @@
 const express = require("express")
 const {getCart, addToCart, incrementProductCount, decrementProductCount, removeProduct} = require("../controllers/cartController")
 const cartRouter = express.Router();
+const authorization = require("../middleware/authorizeRole")
 
-cartRouter.get("/", getCart)
-cartRouter.get("/:userId", getCart)
-cartRouter.post("/:productId", addToCart)
-cartRouter.post("/:userId/:productId", addToCart)
-cartRouter.patch("/increase/:productId", incrementProductCount)
-cartRouter.patch("/increase/:userId/:productId", incrementProductCount)
-cartRouter.patch("/decrease/:productId", decrementProductCount)
-cartRouter.patch("/decrease/:userId/:productId", decrementProductCount)
-cartRouter.delete("/:productId", removeProduct)
-cartRouter.delete("/:userId/:productId", removeProduct)
+cartRouter.get("/", authorization("user"), getCart)
+cartRouter.get("/:userId", authorization("admin"), getCart)
+cartRouter.post("/:productId", authorization("user"), addToCart)
+cartRouter.post("/:userId/:productId", authorization("admin"), addToCart)
+cartRouter.patch("/increase/:productId", authorization("user"), incrementProductCount)
+cartRouter.patch("/increase/:userId/:productId", authorization("admin"), incrementProductCount)
+cartRouter.patch("/decrease/:productId", authorization("user"), decrementProductCount)
+cartRouter.patch("/decrease/:userId/:productId", authorization("admin"), decrementProductCount)
+cartRouter.delete("/:productId", authorization("user"), removeProduct)
+cartRouter.delete("/:userId/:productId", authorization("admin"), removeProduct)
 
 module.exports = cartRouter
