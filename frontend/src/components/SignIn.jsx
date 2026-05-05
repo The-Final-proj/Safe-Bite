@@ -1,7 +1,9 @@
 'use client'
 import API from '@/app/api';
 import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
 import React, { useState } from 'react'
+
 
 const SignIn = () => {
 
@@ -40,13 +42,17 @@ const SignIn = () => {
     }
 
   return (
-            <div id="logIn" className="container-fluid d-flex justify-content-center mt-5">
+            <div id="logIn" className="container-fluid mx-5 mt-5 vw-75">
             <form id="logInForm" onSubmit={handleLogin}>
-                <h1 className="pb-4">Log in to your account</h1>
-                <div>
-                    <div className="mb-3">
+                <div className="pb-4">
+                    <h1>Welcome Back!</h1>
+                    <p className='fs-4'>sign in to your account</p>
+                </div>
+                
+                <div className='w-100'>
+                    <div className="mb-3 w">
                         <label htmlFor="inputEmail" className="form-label">Email address</label>
-                        <input type="email" className="form-control" placeholder="john.doe@gmail.com" id="inputEmail" onChange={(e)=> {
+                        <input type="email" className="form-control w-100" placeholder="john.doe@gmail.com" id="inputEmail" onChange={(e)=> {
                             setEmail(e.target.value)
                             console.log(email)                            
                         }}/>
@@ -64,21 +70,20 @@ const SignIn = () => {
                         </div>                  
 
                         <div className="d-flex justify-content-between">
-                            <button id="forgetPassword" className="form-text btn btn-link p-0" style={{color:"rgb(244, 244, 244)"}}>forget password</button>       
-                            {/* <Link to={'/Register'} className="form-text btn btn-link p-0" id="signUpLink" style={{color:"rgb(244, 244, 244)"}}>create account</Link>                  */}
+                            <button id="forgetPassword" className="form-text btn btn-link p-0">forget password</button>       
+                            {/* <Link href={'/register'} className="form-text btn btn-link p-0" id="signUpLink">create account</Link>                             */}
+                            <div>
+                                <input type="checkbox" className="form-check-input" id="rememberMe" />
+                                <label htmlFor="rememberMe" className="form-check-label ps-2">Remember me</label>                                 
+                            </div>
+                           
+                        </div>                 
                         </div>
 
                     </div>  
 
-                    <div className="mb-3 form-check d-flex justify-content-between">
-                        <div>
-                            <input type="checkbox" className="form-check-input" id="rememberMe" />
-                            <label htmlFor="rememberMe" className="form-check-label">Remember me</label>                            
-                        </div>
-
-                        <button className="btn navButton" id="logInBtn" type='submit'>log in</button> 
-                    </div>
-                                     
+                    <div className="mb-3 form-check d-flex justify-content-center">
+                        <button className="btn btn-primary w-50 mt-2" id="logInBtn" type='submit'>log in</button>        
                 </div>
                 
             </form>

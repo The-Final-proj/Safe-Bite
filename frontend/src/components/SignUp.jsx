@@ -48,9 +48,12 @@ const SignUp = () => {
     }
 
   return (
-        <div id="signUp" className="container-fluid d-flex justify-content-center mt-5">
-            <form id="signUpForm" className="w-75" onSubmit={handleRegister}>
-                <h1 className="mb-3 text-center">Create account</h1>
+        <div id="signUp" className="container-fluid mt-5 mx-5">
+            <form id="signUpForm" className="w-100" onSubmit={handleRegister}>
+                <div>
+                    <h1 className="mb-3">Create account</h1>                    
+                </div>
+
                 <div>
                     <div className="mb-3">
                         <label className="form-label">Email</label>
@@ -81,8 +84,8 @@ const SignUp = () => {
                         </div>
                 </div>
                 <div className='d-flex justify-content-between'>
-                    <button className="btn navButton" id="signUpButton" type='submit'>Sign Up</button>
-                    {/* <Link to={'/Login'} style={{color:"rgb(244, 244, 244)"}} className='mt-2'>already have an account</Link> */}
+                    <button className="btn btn-primary" id="signUpButton" type='submit'>Sign Up</button>
+                    <Link href={'/login'}className='mt-2'>already have an account</Link>
                 </div>
                 
             </form>

@@ -3,11 +3,11 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='register d-flex'>
-        <div className="container align-content-center mb-5">
+    <div className='w-100 d-flex'>
+        <div className="container-fluid align-content-center mb-5">
             <div className="row gap-5">
-                <div className="col-lg-5 d-flex justify-content-center rounded-5 py-5 ms-5">
-                    <SignIn />
+                <div className="col-lg-6 d-flex justify-content-center rounded-5 py-5">
+                    <SignIn className= "vw-100"/>
                 </div>
             </div>
         </div>
