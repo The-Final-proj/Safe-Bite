@@ -10,15 +10,16 @@ export const AuthProvider = ({children}) => {
     const [token, setToken] = useState('');
 
     useEffect(()=>{
-        const _user = localStorage.getItem("user")    
+        const _user = JSON.parse(localStorage.getItem("user"))    
         const _token = localStorage.getItem("token")  
+        console.log(_user)
         setUser(_user)
         setToken(_token)  
 
     }, [])
     const login = (_token, userData) => {
         localStorage.setItem("token", _token)
-        localStorage.setItem("user", userData)
+        localStorage.setItem("user", JSON.stringify(userData))
         setUser(userData)
         setToken(_token)
     }

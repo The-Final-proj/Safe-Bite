@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import API from "@/app/api";
 
@@ -18,8 +18,8 @@ export const DependentProvider = ({children}) => {
             }
 
             try {
-                const res = await API.get("/user/dependents")
-                setDependents(res.data)
+                const res = await API.get("/users/dependents")
+                setDependents(res.data.dependent)
             }
 
             catch(err) {
