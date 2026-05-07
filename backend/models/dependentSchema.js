@@ -6,7 +6,10 @@ const dependent = new mongoose.Schema({
         required: true
     },
     name: {type: String, required: true},
-    relation: String
+    relation: String,
+    allergies: {
+        type: [{String}], default: []
+    }
 
 })
 
