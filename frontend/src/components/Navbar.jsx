@@ -22,8 +22,8 @@ export default function Navbar() {
             src="/safebite_logo.png"
             alt="SafeBite"
             style={{
-              width: "108px",
-              height: "108px",
+              width: "100px",
+              height: "100px",
               objectFit: "contain",
             }}
           />

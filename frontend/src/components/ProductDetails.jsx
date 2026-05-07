@@ -6,7 +6,6 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function ProductDetails({ product }) {
   const { user } = useAuth();
-
   const [selectedMember, setSelectedMember] = useState("me");
 
   const addToCart = async () => {
@@ -26,74 +25,123 @@ export default function ProductDetails({ product }) {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container py-5">
 
-      <div className="row">
+      <div className="row g-4">
 
         {/* IMAGE */}
         <div className="col-md-5">
-          <img
-            src={`http://localhost:5000/${product.image}`}
-            className="img-fluid rounded"
-            alt={product.name}
-          />
+
+          <div className="card border-0 shadow-sm overflow-hidden">
+
+            <img
+              src={`http://localhost:5000/uploads/${product.image}`}
+              alt={product.name}
+              className="w-100"
+              style={{
+                height: "420px",
+                objectFit: "cover",
+              }}
+            />
+
+          </div>
+
         </div>
 
         {/* INFO */}
         <div className="col-md-7">
 
-          <h2>{product.name}</h2>
+          <div className="card border-0 shadow-sm p-4 h-100">
 
-          <h4 className="text-success">{product.price} JOD</h4>
+            {/* TITLE */}
+            <h2 className="fw-bold mb-1">
+              {product.name}
+            </h2>
 
-          <p>{product.description}</p>
+            <small className="text-muted d-block mb-2">
+              {product.category}
+            </small>
 
-          <p><b>Category:</b> {product.category}</p>
+            {/* PRICE */}
+            <h3 className="text-success fw-bold mb-3">
+              {product.price} JOD
+            </h3>
 
-          {/* ALLERGENS */}
-          <div className="mb-3">
-            <b>Allergens:</b>{" "}
-            {product.allergens?.length ? (
-              product.allergens.map((a, i) => (
-                <span key={i} className="badge bg-danger me-1">
-                  {a}
-                </span>
-              ))
-            ) : (
-              <span className="badge bg-secondary">None</span>
-            )}
-          </div>
+            {/* DESCRIPTION */}
+            <p className="text-muted mb-4">
+              {product.description}
+            </p>
 
-          {/* MEMBER SELECT */}
-          <div className="mb-3">
-            <label className="form-label">Buy for:</label>
+            {/* ALLERGENS */}
+            <div className="mb-4">
 
-            <select
-              className="form-select"
-              value={selectedMember}
-              onChange={(e) => setSelectedMember(e.target.value)}
+              <h6 className="fw-semibold mb-2">
+                Allergens
+              </h6>
+
+              <div className="d-flex flex-wrap gap-2">
+
+                {product.allergens?.length > 0 ? (
+                  product.allergens.map((a, i) => (
+                    <span
+                      key={i}
+                      className="badge bg-danger rounded-pill px-3 py-2"
+                    >
+                      {a}
+                    </span>
+                  ))
+                ) : (
+                  <span className="badge bg-success rounded-pill px-3 py-2">
+                    No Allergens
+                  </span>
+                )}
+
+              </div>
+
+            </div>
+
+            {/* MEMBER SELECT */}
+            <div className="mb-4">
+
+              <label className="form-label fw-semibold">
+                Buy for
+              </label>
+
+              <select
+                className="form-select rounded-pill shadow-sm"
+                value={selectedMember}
+                onChange={(e) =>
+                  setSelectedMember(e.target.value)
+                }
+              >
+                <option value="me">Me</option>
+
+                {user?.dependent?.map((m) => (
+                  <option key={m._id} value={m._id}>
+                    {m.name}
+                  </option>
+                ))}
+              </select>
+
+            </div>
+
+            {/* BUTTON */}
+            <button
+              onClick={addToCart}
+              className="btn btn-dark w-100 rounded-pill py-2 fw-semibold"
+              style={{
+                backgroundColor: "#111",
+                color: "#FFFBA7",
+              }}
             >
-              <option value="me">Me</option>
+              Add to Cart
+            </button>
 
-              {user?.dependent?.map((m) => (
-                <option key={m._id} value={m._id}>
-                  {m.name}
-                </option>
-              ))}
-            </select>
           </div>
-
-          <button
-            className="btn btn-primary w-100"
-            onClick={addToCart}
-          >
-            Add to Cart
-          </button>
 
         </div>
 
       </div>
-
     </div>
   );
 }

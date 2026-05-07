@@ -5,12 +5,12 @@ import API from "@/app/api";
 import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] =
-    useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   const getProducts = async (query = "") => {
     try {
@@ -34,10 +34,13 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* WHITE BACKGROUND */}
-      <div className="min-vh-100 py-3 bg-white">
-
-        <div className="container">
+      {/* MAIN WRAPPER */}
+      <div
+        className="d-flex flex-column min-vh-100"
+        style={{ background: "#fff" }}
+      >
+        {/* CONTENT */}
+        <div className="container py-3 flex-grow-1">
 
           {/* HERO */}
           <div
@@ -134,7 +137,11 @@ export default function Home() {
             )}
 
           </div>
+
         </div>
+
+        {/* FOOTER */}
+        <Footer />
       </div>
     </>
   );
