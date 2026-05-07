@@ -6,6 +6,7 @@ import BootstrapClient from "../components/BooststrapClient";
 
 import { AuthProvider } from "@/context/AuthContext";
 import { DependentProvider } from "@/context/DependentContext";
+import { AllergensProvider } from "@/context/allergensContext";
 
 import { ToastContainer } from "react-toastify";
 
@@ -15,6 +16,13 @@ export default function RootLayout({ children }) {
       <body>
 
         <AuthProvider>
+<<<<<<< HEAD
+            <DependentProvider>
+                <AllergensProvider>
+                    <body>{children}</body>                    
+                </AllergensProvider>
+            </DependentProvider>
+=======
           <DependentProvider>
 
             <BootstrapClient />
@@ -31,6 +39,7 @@ export default function RootLayout({ children }) {
             />
 
           </DependentProvider>
+>>>>>>> upstream/main
         </AuthProvider>
 
       </body>

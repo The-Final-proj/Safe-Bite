@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
+import API from '../api'
+=======
 import API from "@/app/api";
+>>>>>>> upstream/main
 import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
 import Navbar from "@/components/Navbar";
@@ -39,6 +43,10 @@ export default function ProductsPage() {
 
   // ================= GET PRODUCTS =================
   const getProducts = async (query = "") => {
+<<<<<<< HEAD
+    const res = await API.get(`/products?search=${query}`);
+    setProducts(res.data);
+=======
     try {
       const res = await API.get(
         `/products?search=${query}`
@@ -48,6 +56,7 @@ export default function ProductsPage() {
     } catch (err) {
       console.log(err);
     }
+>>>>>>> upstream/main
   };
 
   useEffect(() => {
