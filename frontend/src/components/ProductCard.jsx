@@ -1,32 +1,60 @@
-import Link from "next/link";
+"use client";
 
-const IMAGE_URL = "http://localhost:5000/";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function ProductCard({ product }) {
+  const router = useRouter();
+  const { user } = useAuth();
+
+  const handleClick = () => {
+    if (!user) {
+      toast.error("You must login first");
+
+      setTimeout(() => {
+        router.push("/login");
+      }, 800);
+
+      return;
+    }
+
+    router.push(`/products/${product._id}`);
+  };
+
   return (
-    <Link href={`/products/${product._id}`}>
-      <div className="product-card">
+    <div
+      onClick={handleClick}
+      className="card shadow-sm h-100"
+      style={{ cursor: "pointer" }}
+    >
+      <img
+        src={`http://localhost:5000/${product.image}`}
+        className="card-img-top"
+        style={{ height: "180px", objectFit: "cover" }}
+        alt={product.name}
+      />
 
-        {product.image && (
-          <img
-            className="product-image"
-            src={`${IMAGE_URL}${product.image}`}
-            alt={product.name}
-          />
-        )}
+      <div className="card-body">
+        <h5>{product.name}</h5>
 
-        <h3 className="product-name">{product.name}</h3>
-        <p className="product-price">{product.price} JOD</p>
+        <p className="text-success">{product.price} JOD</p>
 
         <div>
-          {product.allergens?.length > 0
-            ? product.allergens.map((a, i) => (
-                <span key={i} className="badge">{a}</span>
-              ))
-            : <span className="badge">No allergens</span>}
+          {product.allergens?.length > 0 ? (
+            product.allergens.map((a, i) => (
+              <span key={i} className="badge bg-danger me-1">
+                {a}
+              </span>
+            ))
+          ) : (
+            <span className="badge bg-secondary">No allergens</span>
+          )}
         </div>
-
       </div>
-    </Link>
+    </div>
   );
 }
+
+
+
