@@ -3,12 +3,13 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='w-100 d-flex'>
-        <div className="container-fluid align-content-center mb-5">
-            <div className="row gap-5">
-                <div className="col-lg-6 d-flex justify-content-center rounded-5 py-5">
+    <div className="bg-dark min-vh-100 d-flex align-items-center justify-content-center ">
+        <div className="container bg-light rounded-3 p-0" style={{ maxWidth: "1000px" }}>
+            <div className="row g-0">
                     <SignIn className= "vw-100"/>
-                </div>
+                    <div className="col-md-6 d-none d-md-flex align-items-center justify-content-center bg-body-secondary">
+                        <span className="text-muted">image here</span>
+                    </div>
             </div>
         </div>
     </div>

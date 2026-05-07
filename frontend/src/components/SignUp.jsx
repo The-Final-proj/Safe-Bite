@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import API from "../app/api"
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const SignUp = () => {
 
@@ -13,6 +14,8 @@ const SignUp = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [error, setError] = useState('')
+    
+    const router = useRouter()
 
     const handleRegister = async (e) => {
         e.preventDefault()
@@ -33,12 +36,15 @@ const SignUp = () => {
         }
 
         try {
-            const res = API.post("/user/register", {
+            const res = await API.post("/users/register", {
                 email, username, firstName, lastName, password: pwd
             }) 
 
-            if (res.data) {
+            console.log(res)
 
+            if (res.data) {
+                console.log("registered")
+                router.push("/login")
             }
         }
 
@@ -48,46 +54,61 @@ const SignUp = () => {
     }
 
   return (
-        <div id="signUp" className="container-fluid mt-5 mx-5">
-            <form id="signUpForm" className="w-100" onSubmit={handleRegister}>
-                <div>
-                    <h1 className="mb-3">Create account</h1>                    
+        <div id="signUp" className="col-md-6 p-5 border-end">
+            <form id="signUpForm" onSubmit={handleRegister}>
+                <div className="mb-4">
+                    <h1>Welcome!</h1>
+                    <p className='fs-4'>join us today</p>
                 </div>
 
-                <div>
-                    <div className="mb-3">
-                        <label className="form-label">Email</label>
-                        <input type="email" className="form-control" placeholder='john.doe@gmail.com' onChange={(e)=>{setEmail(e.target.value)}}/>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input type="password" className="form-control" onChange={(e)=>{setPassword(e.target.value)}}/>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Confirm Password</label>
-                        <input type="password" className="form-control" onChange={(e)=>{setConPass(e.target.value)}}/>
-                    </div>
-                    <div className="mb-3 d-flex justify-content-between">
-                        <div className="w-50 pe-2">
-                            <label className="form-label">username</label>
-                            <input type="text" className="form-control" placeholder="@johndoe123" onChange={(e)=>{setUsername(e.target.value)}}/>
-                        </div>
-                        <div className="w-50 ps-2"> 
-                            <label className="form-label">name</label>
-                            <input type="text" className="form-control" placeholder="John Doe" onChange={(e)=>{setName(e.target.value)}}/>
-                        </div>  
-                        </div>                       
-                        <div className='text-center mt-1'>
-                            {
-                                error && <div className='text-danger-emphasis'>{error}</div>
-                            }                            
-                        </div>
-                </div>
-                <div className='d-flex justify-content-between'>
-                    <button className="btn btn-primary" id="signUpButton" type='submit'>Sign Up</button>
-                    <Link href={'/login'}className='mt-2'>already have an account</Link>
+                <div className="mb-3">
+                    <label className="form-label">Email</label>
+                    <input type="email" className="form-control" placeholder='john.doe@gmail.com' onChange={(e)=>{setEmail(e.target.value)}}/>
                 </div>
                 
+                <div className="mb-3">
+                    <label className="form-label">Username</label>
+                    <input type="text" placeholder='@johndoe' className="form-control" onChange={(e)=>setUsername(e.target.value)}/>
+                </div>
+
+                <div className="row mb-3">
+                    <div className="col">
+                        <label className="form-label">First Name</label>
+                        <input type="text" className="form-control" onChange={(e)=>setFirstName(e.target.value)}/>
+                    </div>
+                    <div className="col">
+                        <label className="form-label">Last Name</label>
+                        <input type="text" className="form-control" onChange={(e)=>setLastName(e.target.value)}/>
+                    </div>
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Password</label>
+                    <input type="password" className="form-control" onChange={(e)=>setPwd(e.target.value)}/>
+                </div>
+            
+
+                <div className="mb-3">
+                    <label className="form-label">Confirm Password</label>
+                    <input type="password" className="form-control" onChange={(e)=>setConfirmPwd(e.target.value)}/>
+                </div>
+
+                {
+                    error && (
+                        <div className="text-danger mb-3 text-center">
+                            {error}
+                        </div>
+                    )
+                }
+
+                <button type='submit' className="btn btn-dark w-100 mb-3">
+                    Sign Up
+                </button>
+
+                <p className="text-center small">
+                    already have an account? <Link href={"/login"}>Sign in</Link>
+                </p>
+            
             </form>
         </div>
   )
