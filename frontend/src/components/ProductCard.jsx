@@ -25,36 +25,74 @@ export default function ProductCard({ product }) {
   return (
     <div
       onClick={handleClick}
-      className="card shadow-sm h-100"
+      className="card border-0 shadow-sm h-100 overflow-hidden"
       style={{ cursor: "pointer" }}
     >
-      <img
-        src={`http://localhost:5000/${product.image}`}
-        className="card-img-top"
-        style={{ height: "180px", objectFit: "cover" }}
-        alt={product.name}
-      />
 
+      {/* IMAGE */}
+      <div className="position-relative">
+
+        <img
+          src={`http://localhost:5000/uploads/${product.image}`}
+          alt={product.name}
+          className="card-img-top"
+          style={{
+            height: "190px",
+            objectFit: "cover",
+          }}
+        />
+
+        {/* PRICE BADGE */}
+        <span
+          className="position-absolute top-0 end-0 m-2 badge rounded-pill"
+          style={{
+            backgroundColor: "#111",
+            color: "#FFFBA7",
+            padding: "8px 12px",
+            fontSize: "12px",
+          }}
+        >
+          {product.price} JOD
+        </span>
+
+      </div>
+
+      {/* BODY */}
       <div className="card-body">
-        <h5>{product.name}</h5>
 
-        <p className="text-success">{product.price} JOD</p>
+        {/* NAME */}
+        <h6 className="fw-bold mb-1 text-dark">
+          {product.name}
+        </h6>
 
-        <div>
+        {/* CATEGORY */}
+        <small className="text-muted d-block mb-2">
+          {product.category}
+        </small>
+
+        {/* ALLERGENS */}
+        <div className="d-flex flex-wrap gap-1">
+
           {product.allergens?.length > 0 ? (
             product.allergens.map((a, i) => (
-              <span key={i} className="badge bg-danger me-1">
+              <span
+                key={i}
+                className="badge bg-danger rounded-pill px-2 py-1"
+                style={{ fontSize: "11px" }}
+              >
                 {a}
               </span>
             ))
           ) : (
-            <span className="badge bg-secondary">No allergens</span>
+            <span className="badge bg-success rounded-pill px-2 py-1">
+              Safe
+            </span>
           )}
+
         </div>
+
       </div>
+
     </div>
   );
 }
-
-
-

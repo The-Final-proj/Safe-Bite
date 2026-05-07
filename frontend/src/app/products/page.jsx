@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import { useAuth } from "@/context/AuthContext";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export default function ProductsPage() {
   const { user, setUser } = useAuth();
@@ -362,6 +363,7 @@ export default function ProductsPage() {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
