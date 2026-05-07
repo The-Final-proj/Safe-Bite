@@ -2,6 +2,7 @@
 import API from '@/app/api';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
 
@@ -11,6 +12,7 @@ const SignIn = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const {login} = useAuth()
+    const router = useRouter()
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -20,13 +22,14 @@ const SignIn = () => {
             return
         }
         try {
-            const res = await API.post("/user/login", {
+            const res = await API.post("/users/login", {
                 email, password
             })
 
             if(res.data.token) {
+                console.log(res.data)
                 login(res.data.token, res.data.user)
-                // navigate to welcome page
+                router.push("/welcome")
             }
 
             else {
@@ -42,17 +45,16 @@ const SignIn = () => {
     }
 
   return (
-            <div id="logIn" className="container-fluid mx-5 mt-5 vw-75">
+        <div id="logIn" className="col-md-6 p-5 border-end">
             <form id="logInForm" onSubmit={handleLogin}>
-                <div className="pb-4">
+                <div className="mb-4">
                     <h1>Welcome Back!</h1>
                     <p className='fs-4'>sign in to your account</p>
                 </div>
                 
-                <div className='w-100'>
-                    <div className="mb-3 w">
-                        <label htmlFor="inputEmail" className="form-label">Email address</label>
-                        <input type="email" className="form-control w-100" placeholder="john.doe@gmail.com" id="inputEmail" onChange={(e)=> {
+                    <div className="mb-3">
+                        <label htmlFor="inputEmail" className="form-label">Email</label>
+                        <input type="email" className="form-control" placeholder="john.doe@gmail.com" id="inputEmail" onChange={(e)=> {
                             setEmail(e.target.value)
                             console.log(email)                            
                         }}/>
@@ -69,23 +71,37 @@ const SignIn = () => {
                             }                            
                         </div>                  
 
-                        <div className="d-flex justify-content-between">
-                            <button id="forgetPassword" className="form-text btn btn-link p-0">forget password</button>       
-                            {/* <Link href={'/register'} className="form-text btn btn-link p-0" id="signUpLink">create account</Link>                             */}
-                            <div>
-                                <input type="checkbox" className="form-check-input" id="rememberMe" />
-                                <label htmlFor="rememberMe" className="form-check-label ps-2">Remember me</label>                                 
+                        <div className="d-flex justify-content-between align-items-center mb-4">
+
+                            <div className="form-check">
+                                <input type="checkbox" id='rememberMe' className="form-check-input" />
+                                <label htmlFor="rememberMe">stay logged in</label>
                             </div>
-                           
-                        </div>                 
+
+                            <button className="btn btn-link p-0 small">
+                                forgot password
+                            </button>
+                        </div>    
+
+                        <button className="btn btn-dark w-100 mb-4" type='submit'>
+                            sign in
+                        </button>
+
+                        <div className="d-flex align-items center mb-4">
+                            <hr className="flex-grow-1" />
+                            <span className="px-2 text-muted">or</span>
+                            <hr className="flex-grow-1" />
                         </div>
 
-                    </div>  
+                        <button className="btn btn-secondary w-100 mb-3">
+                            continue with google
+                        </button>
 
-                    <div className="mb-3 form-check d-flex justify-content-center">
-                        <button className="btn btn-primary w-50 mt-2" id="logInBtn" type='submit'>log in</button>        
-                </div>
-                
+                        <p className="text-center small">
+                            don't have an account? <Link href={"/register"}>create account</Link>
+                        </p>
+
+                    </div>
             </form>
         </div>
   )
