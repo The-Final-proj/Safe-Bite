@@ -14,8 +14,7 @@ export const DependentProvider = ({children}) => {
         const getDependents = async () => {
             try {
                 const res = await API.get("/users/dependents")
-                console.log(res.data.dependent)
-                setDependents(res.data.dependent)
+                setDependents(res.data.dependent || [])// []  
             }
 
             catch(err) {

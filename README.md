@@ -128,14 +128,10 @@ SafeBite/
 │   │   │   └── FavoriteButton.jsx
 │   │   │
 │   │   ├── context/
-│   │   │   ├── AuthContext.jsx
-│   │   │   ├── CartContext.jsx
-│   │   │   ├── DependentContext.jsx
-│   │   │   └── FavoriteContext.jsx
-│   │   │
-│   │   ├── lib/
-│   │   │   └── axios.js
-│   │
+│   │       ├── AuthContext.jsx
+│   │       ├── CartContext.jsx
+│   │       ├── DependentContext.jsx
+│   │       └── FavoriteContext.jsx
 │   ├── public/
 │   │   ├── images/
 │   │   └── logo.png

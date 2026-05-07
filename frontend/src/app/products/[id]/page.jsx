@@ -1,22 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import API from "@/app/api";
 import ProductDetails from "@/components/ProductDetails";
+import { useParams } from "next/navigation";
 
-async function getProduct(id) {
-  const res = await fetch(
-    `http://localhost:5000/api/products/${id}`,
-    { cache: "no-store" }
-  );
+export default function Page() {
+  const { id } = useParams();
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch product");
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await API.get(`/products/${id}`);
+        setProduct(res.data);
+      } catch (err) {
+        console.log("Error:", err);
+      }
+    };
+
+    if (id) getProduct();
+  }, [id]);
+
+  if (!product) {
+    return <div className="p-5">Loading...</div>;
   }
-
-  return res.json();
-}
-
-export default async function Page({ params }) {
-  const { id } = await params;
-
-  const product = await getProduct(id);
 
   return <ProductDetails product={product} />;
 }
