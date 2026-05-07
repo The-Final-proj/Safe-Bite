@@ -21,9 +21,9 @@ const getDependents = async (req, res) => {
 const addDependent = async (req, res) => {
     const userId = req.user?._id || req.params.id
     try {
-        const {name, relation} = req.body
+        const {name, relation, allergies} = req.body
         const member = new dependentModel({
-            userId, name, relation
+            userId, name, relation, allergies
         })
         console.log(member)
         const saved = await member.save();
