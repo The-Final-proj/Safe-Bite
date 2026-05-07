@@ -20,25 +20,25 @@ const page = () => {
                 dependents && 
                 <div className="row mb-4">
                 {
-                    dependents.map((member, index) => {
+                    dependents.map((member, index) => (
                         <div className="col-md-4 mb-3" key={index}>
                             <div className="text-center p-4 rounded bg-body-secondary" style={{
                                 cursor: "pointer", transition: "0.2s"
                             }}>
-                                {member}
+                                {member.name}
                             </div>
                         </div>
-                    })
+                    ))
                 }
                 </div>                
             }
 
 
             <div className="d-flex gap-3">
-                <button className='btn btn-outline-secondary px-4'>add new</button>
-                <button className="btn btn-secondary px-3">
+                <Link href={"/welcome/add-member"} className='btn btn-outline-secondary px-4'>add new</Link>
+                <Link href={"/products"} className="btn btn-secondary px-3">
                     view all products →
-                </button>
+                </Link>
             </div>            
         </div>
     </div>

@@ -8,17 +8,13 @@ const DependentContext = createContext();
 export const DependentProvider = ({children}) => {
 
     const [dependents, setDependents] = useState([])
-    const {user} = useAuth()
+    const [count, setCount] = useState(false)
 
     useEffect(()=>{
         const getDependents = async () => {
-            if (!user) {
-                setDependents([])
-                return
-            }
-
             try {
                 const res = await API.get("/users/dependents")
+                console.log(res.data.dependent)
                 setDependents(res.data.dependent)
             }
 
@@ -27,18 +23,42 @@ export const DependentProvider = ({children}) => {
             }
         }
         getDependents();
-    }, [user])
+    }, [count])
 
-    const addDependent = async (_name, relation, [...allergens]) => {
+    const addDependent = async (name, relation, ...allergens) => {
+        try {
+            const res = await API.patch("/users/dependents/add", {
+                name, relation, allergies: allergens
+            })
+            setCount(!count)
+        }
 
+        catch (err) {
+            console.log(err)
+        }
     }
 
     const deleteDependent = async (id) => {
+        try {
+            const res = await API.patch(`/users/dependents/del/${id}`)
+            setCount(!count)
+        }
+
+        catch(err) {
+            console.log(err)
+        }
 
     }
 
     const removeAll = async () => {
+        try {
+            const res = await API.delete(`/users/dependents`)
+            setCount(!count)
+        }
 
+        catch(err) {
+            console.log(err)
+        }
     }
 
 

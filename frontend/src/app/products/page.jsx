@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "@/lib/axios";
+import API from '../api'
 import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
 
@@ -10,7 +10,7 @@ export default function ProductsPage() {
   const [search, setSearch] = useState("");
 
   const getProducts = async (query = "") => {
-    const res = await axios.get(`/products?search=${query}`);
+    const res = await API.get(`/products?search=${query}`);
     setProducts(res.data);
   };
 
