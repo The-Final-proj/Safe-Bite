@@ -19,7 +19,7 @@ export const DependentProvider = ({children}) => {
 
             try {
                 const res = await API.get("/users/dependents")
-                setDependents(res.data.dependent)
+                setDependents(res.data.dependent || [])// []  
             }
 
             catch(err) {

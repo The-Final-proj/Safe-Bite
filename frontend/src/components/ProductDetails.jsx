@@ -1,69 +1,99 @@
+"use client";
+
+import { useState } from "react";
+import API from "@/app/api";
+import { useAuth } from "@/context/AuthContext";
+
 export default function ProductDetails({ product }) {
+  const { user } = useAuth();
+
+  const [selectedMember, setSelectedMember] = useState("me");
+
+  const addToCart = async () => {
+    try {
+      const memberId =
+        selectedMember === "me" ? null : selectedMember;
+
+      await API.post("/cart/add", {
+        productId: product._id,
+        memberId,
+      });
+
+      alert("Added to cart");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <div className="details-container">
+    <div className="container mt-4">
 
-      {/* IMAGE */}
-      <div>
-        <img
-          className="details-image"
-          src={`http://localhost:5000/${product.image}`}
-          alt={product.name}
-        />
-      </div>
+      <div className="row">
 
-      {/* INFO */}
-      <div className="details-info">
+        {/* IMAGE */}
+        <div className="col-md-5">
+          <img
+            src={`http://localhost:5000/${product.image}`}
+            className="img-fluid rounded"
+            alt={product.name}
+          />
+        </div>
 
-        <h1 className="details-title">{product.name}</h1>
+        {/* INFO */}
+        <div className="col-md-7">
 
-        <p className="details-price">{product.price} JOD</p>
+          <h2>{product.name}</h2>
 
-        <p className="details-text">
-          <b>Description:</b> {product.description}
-        </p>
+          <h4 className="text-success">{product.price} JOD</h4>
 
-        <p className="details-text">
-          <b>Stock:</b> {product.stock}
-        </p>
+          <p>{product.description}</p>
 
-        <p className="details-text">
-          <b>Category:</b> {product.category}
-        </p>
+          <p><b>Category:</b> {product.category}</p>
 
-        {/* ALLERGENS */}
-        <div className="details-section">
-          <h3>Allergens</h3>
-          <div>
-            {product.allergens?.length > 0 ? (
+          {/* ALLERGENS */}
+          <div className="mb-3">
+            <b>Allergens:</b>{" "}
+            {product.allergens?.length ? (
               product.allergens.map((a, i) => (
-                <span key={i} className="badge">{a}</span>
+                <span key={i} className="badge bg-danger me-1">
+                  {a}
+                </span>
               ))
             ) : (
-              <span className="badge">None</span>
+              <span className="badge bg-secondary">None</span>
             )}
           </div>
-        </div>
 
-        {/* FREE FROM */}
-        <div className="details-section">
-          <h3>Free From</h3>
-          <div>
-            {product.freeFrom?.length > 0 ? (
-              product.freeFrom.map((f, i) => (
-                <span key={i} className="badge">{f}</span>
-              ))
-            ) : (
-              <span className="badge">None</span>
-            )}
+          {/* MEMBER SELECT */}
+          <div className="mb-3">
+            <label className="form-label">Buy for:</label>
+
+            <select
+              className="form-select"
+              value={selectedMember}
+              onChange={(e) => setSelectedMember(e.target.value)}
+            >
+              <option value="me">Me</option>
+
+              {user?.dependent?.map((m) => (
+                <option key={m._id} value={m._id}>
+                  {m.name}
+                </option>
+              ))}
+            </select>
           </div>
-        </div>
 
-        {/* BUTTON (future use) */}
-        <button className="details-btn">
-          Add to Cart
-        </button>
+          <button
+            className="btn btn-primary w-100"
+            onClick={addToCart}
+          >
+            Add to Cart
+          </button>
+
+        </div>
 
       </div>
+
     </div>
   );
 }
