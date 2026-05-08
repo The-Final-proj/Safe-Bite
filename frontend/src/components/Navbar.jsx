@@ -1,8 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const { user, logout } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // 🚫 اخفاء navbar في صفحات auth
+  const hiddenRoutes = ["/login", "/register"];
+  if (hiddenRoutes.includes(pathname)) return null;
+
+  const handleLogout = () => {
+    logout();
+    router.push("/login");
+  };
+
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm"
@@ -10,13 +25,13 @@ export default function Navbar() {
         background: "linear-gradient(90deg, #0f172a, #1e293b)",
       }}
     >
-      {/* wider navbar */}
       <div className="container-fluid px-4">
-        {/* LOGO LEFT */}
+
+        {/* LOGO */}
         <Link
           href="/"
           className="navbar-brand d-flex align-items-center m-0"
-          style={{ gap: "12px" }} // 👈 spacing between image & text
+          style={{ gap: "12px" }}
         >
           <img
             src="/safebite_logo.png"
@@ -27,7 +42,6 @@ export default function Navbar() {
               objectFit: "contain",
             }}
           />
-
           <span className="fw-bold text-white fs-3">Safe Bite</span>
         </Link>
 
@@ -43,6 +57,7 @@ export default function Navbar() {
 
         {/* CONTENT */}
         <div className="collapse navbar-collapse" id="nav">
+
           {/* CENTER LINKS */}
           <ul className="navbar-nav mx-auto gap-3">
             <li className="nav-item">
@@ -62,24 +77,52 @@ export default function Navbar() {
                 About
               </Link>
             </li>
+
+            {user?.role === "supplier" && (
+              <li className="nav-item">
+                <Link className="nav-link text-light" href="/supplier">
+                  Dashboard
+                </Link>
+              </li>
+            )}
           </ul>
 
           {/* RIGHT BUTTONS */}
-          <div className="d-flex gap-2">
-            <Link
-              href="/login"
-              className="btn btn-light btn-sm rounded-pill px-3"
-            >
-              Login
-            </Link>
+          <div className="d-flex gap-2 align-items-center">
 
-            <Link
-              href="/register"
-              className="btn btn-outline-light btn-sm rounded-pill px-3"
-            >
-              Register
-            </Link>
+            {!user ? (
+              <>
+                <Link
+                  href="/login"
+                  className="btn btn-light btn-sm rounded-pill px-3"
+                >
+                  Login
+                </Link>
+
+                <Link
+                  href="/register"
+                  className="btn btn-outline-light btn-sm rounded-pill px-3"
+                >
+                  Register
+                </Link>
+              </>
+            ) : (
+              <>
+                <span className="text-light small me-2">
+                  {user.username || "User"}
+                </span>
+
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-danger btn-sm rounded-pill px-3"
+                >
+                  Logout
+                </button>
+              </>
+            )}
+
           </div>
+
         </div>
       </div>
     </nav>

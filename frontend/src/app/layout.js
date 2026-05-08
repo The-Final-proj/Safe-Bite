@@ -2,6 +2,7 @@ import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
+import Navbar from "@/components/Navbar";
 import BootstrapClient from "../components/BooststrapClient";
 
 import { AuthProvider } from "@/context/AuthContext";
@@ -16,30 +17,17 @@ export default function RootLayout({ children }) {
       <body>
 
         <AuthProvider>
-<<<<<<< HEAD
-            <DependentProvider>
-                <AllergensProvider>
-                    <body>{children}</body>                    
-                </AllergensProvider>
-            </DependentProvider>
-=======
           <DependentProvider>
+            <AllergensProvider>
 
-            <BootstrapClient />
+              <Navbar />
 
-            {children}
+              {children}
 
-            <ToastContainer
-              position="top-right"
-              autoClose={2000}
-              hideProgressBar={false}
-              closeOnClick
-              pauseOnHover
-              draggable
-            />
+              <ToastContainer />
 
+            </AllergensProvider>
           </DependentProvider>
->>>>>>> upstream/main
         </AuthProvider>
 
       </body>
