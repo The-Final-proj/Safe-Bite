@@ -9,6 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import { useAllergens } from "@/context/allergensContext";
 
 export default function ProductsPage() {
   const { user, setUser } = useAuth();
@@ -24,15 +25,7 @@ export default function ProductsPage() {
   const [selectedMember, setSelectedMember] =
     useState(memberFromUrl || "me");
 
-  const ALLERGEN_OPTIONS = [
-    "milk",
-    "eggs",
-    "peanuts",
-    "gluten",
-    "soy",
-    "fish",
-    "nuts",
-  ];
+  const ALLERGEN_OPTIONS = useAllergens()
 
   const [selectedAllergies, setSelectedAllergies] =
     useState([]);
@@ -112,8 +105,8 @@ export default function ProductsPage() {
       };
     });
 
-    setSelectedAllergies([]);
   };
+
 
   // ================= FILTER PRODUCTS =================
   const filteredProducts = products
