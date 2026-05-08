@@ -14,6 +14,8 @@ const SignUp = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [error, setError] = useState('')
+    const [role, setRole] = useState('user')
+    console.log(role)
     
     const router = useRouter()
 
@@ -37,7 +39,7 @@ const SignUp = () => {
 
         try {
             const res = await API.post("/users/register", {
-                email, username, firstName, lastName, password: pwd
+                email, username, firstName, lastName, password: pwd, role
             }) 
 
             console.log(res)
@@ -91,6 +93,14 @@ const SignUp = () => {
                 <div className="mb-3">
                     <label className="form-label">Confirm Password</label>
                     <input type="password" className="form-control" onChange={(e)=>setConfirmPwd(e.target.value)}/>
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="supplier" className='form-label'>register as</label>
+                    <select className="form-select" onChange={(e)=>{setRole(e.target.value)}}>
+                        <option>user</option>
+                        <option>supplier</option>
+                    </select>
                 </div>
 
                 {

@@ -35,11 +35,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return (
-<<<<<<< HEAD
-        <AuthContext.Provider value={{user, login, logout, token, loading}}>
-=======
         <AuthContext.Provider value={{user, setUser, login, logout, token}}>
->>>>>>> upstream/main
             {children}
         </AuthContext.Provider>
     )
