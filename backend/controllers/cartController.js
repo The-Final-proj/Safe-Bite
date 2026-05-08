@@ -20,9 +20,9 @@ const getCart = async (req, res) => {
 const addToCart = async (req, res) => {
     const userId = req.user?._id || req.params.userId 
     const { productId } = req.params
-    const quantity = Number(req.query.quantity) || 1
+    const quantity = Number(req?.query?.quantity) || 1
 
-    if (qunatity <= 0) {
+    if (quantity <= 0) {
         return res.status(400).json("quantity must be greater than 0")
     }
 

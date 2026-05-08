@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
 import API from '../api'
-=======
-import API from "@/app/api";
->>>>>>> upstream/main
 import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
 import Navbar from "@/components/Navbar";
@@ -13,6 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import { useAllergens } from "@/context/allergensContext";
 
 export default function ProductsPage() {
   const { user, setUser } = useAuth();
@@ -28,25 +25,13 @@ export default function ProductsPage() {
   const [selectedMember, setSelectedMember] =
     useState(memberFromUrl || "me");
 
-  const ALLERGEN_OPTIONS = [
-    "milk",
-    "eggs",
-    "peanuts",
-    "gluten",
-    "soy",
-    "fish",
-    "nuts",
-  ];
+  const ALLERGEN_OPTIONS = useAllergens()
 
   const [selectedAllergies, setSelectedAllergies] =
     useState([]);
 
   // ================= GET PRODUCTS =================
   const getProducts = async (query = "") => {
-<<<<<<< HEAD
-    const res = await API.get(`/products?search=${query}`);
-    setProducts(res.data);
-=======
     try {
       const res = await API.get(
         `/products?search=${query}`
@@ -56,7 +41,6 @@ export default function ProductsPage() {
     } catch (err) {
       console.log(err);
     }
->>>>>>> upstream/main
   };
 
   useEffect(() => {
@@ -121,8 +105,8 @@ export default function ProductsPage() {
       };
     });
 
-    setSelectedAllergies([]);
   };
+
 
   // ================= FILTER PRODUCTS =================
   const filteredProducts = products
