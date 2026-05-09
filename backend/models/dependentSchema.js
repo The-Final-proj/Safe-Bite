@@ -8,7 +8,7 @@ const dependent = new mongoose.Schema({
     name: {type: String, required: true},
     relation: String,
     allergies: {
-        type: [{String}], default: []
+        type: [String], default: []
     }
 
 })
