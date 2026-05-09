@@ -44,7 +44,7 @@ const addToFavorites = async (req, res) => {
     try {
         const favorites = await favoritesModel.findOne({userId: userId})
         if (!favorites) {
-            return res.status(404).json("no facorites list found for this user or user not found")
+            return res.status(404).json("no favorites list found for this user or user not found")
         }
 
         const product = await productModel.findById(productId)

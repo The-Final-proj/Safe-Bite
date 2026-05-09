@@ -96,7 +96,7 @@ const SignUp = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="supplier" className='form-label'>register as</label>
+                    <label htmlFor="supplier" className='form-label'>Register As</label>
                     <select className="form-select" onChange={(e)=>{setRole(e.target.value)}}>
                         <option>user</option>
                         <option>supplier</option>

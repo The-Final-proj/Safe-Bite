@@ -8,10 +8,11 @@ import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
-export default function Home() {
-  const { user } = useAuth();
-  const router = useRouter();
 
+export default function Home() {
+
+    const {user} = useAuth();
+    const router = useRouter()
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");

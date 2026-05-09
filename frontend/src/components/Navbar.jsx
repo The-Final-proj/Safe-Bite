@@ -69,13 +69,30 @@ export default function Navbar() {
 
             {/* ❗ Products فقط إذا user مسجل ومش supplier */}
             {user && user.role !== "supplier" && (
-              <li className="nav-item">
+            <>              
+            <li className="nav-item">
                 <Link className="nav-link text-light " href="/welcome"
                  style={{ fontSize: "1.1rem" }}
                 >
                   Members
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link text-light " href="/cart"
+                 style={{ fontSize: "1.1rem" }}
+                >
+                  Cart
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link text-light " href="/favorites"
+                 style={{ fontSize: "1.1rem" }}
+                >
+                  favorites
+                </Link>
+              </li>
+            </>
+
             )}
 
             <li className="nav-item">
