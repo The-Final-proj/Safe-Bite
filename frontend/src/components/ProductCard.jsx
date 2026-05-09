@@ -28,12 +28,14 @@ export default function ProductCard({ product }) {
       className="card border-0 shadow-sm h-100 overflow-hidden"
       style={{ cursor: "pointer" }}
     >
-
       {/* IMAGE */}
       <div className="position-relative">
-
         <img
-          src={`http://localhost:5000/uploads/${product.image}`}
+          src={
+            product.image?.startsWith("http")
+              ? product.image
+              : `http://localhost:5000/${product.image}`
+          }
           alt={product.name}
           className="card-img-top"
           style={{
@@ -54,25 +56,18 @@ export default function ProductCard({ product }) {
         >
           {product.price} JOD
         </span>
-
       </div>
 
       {/* BODY */}
       <div className="card-body">
-
         {/* NAME */}
-        <h6 className="fw-bold mb-1 text-dark">
-          {product.name}
-        </h6>
+        <h6 className="fw-bold mb-1 text-dark">{product.name}</h6>
 
         {/* CATEGORY */}
-        <small className="text-muted d-block mb-2">
-          {product.category}
-        </small>
+        <small className="text-muted d-block mb-2">{product.category}</small>
 
         {/* ALLERGENS */}
         <div className="d-flex flex-wrap gap-1">
-
           {product.allergens?.length > 0 ? (
             product.allergens.map((a, i) => (
               <span
@@ -88,11 +83,8 @@ export default function ProductCard({ product }) {
               Safe
             </span>
           )}
-
         </div>
-
       </div>
-
     </div>
   );
 }

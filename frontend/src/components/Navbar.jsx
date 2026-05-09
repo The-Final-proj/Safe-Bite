@@ -9,7 +9,6 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // 🚫 اخفاء navbar في صفحات auth
   const hiddenRoutes = ["/login", "/register"];
   if (hiddenRoutes.includes(pathname)) return null;
 
@@ -55,39 +54,52 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* CONTENT */}
         <div className="collapse navbar-collapse" id="nav">
 
           {/* CENTER LINKS */}
           <ul className="navbar-nav mx-auto gap-3">
+
             <li className="nav-item">
-              <Link className="nav-link text-light" href="/">
+              <Link className="nav-link text-light" href="/"
+                style={{ fontSize: "1.1rem" }}
+              >
                 Home
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link className="nav-link text-light" href="/products">
-                Products
-              </Link>
-            </li>
+            {/* ❗ Products فقط إذا user مسجل ومش supplier */}
+            {user && user.role !== "supplier" && (
+              <li className="nav-item">
+                <Link className="nav-link text-light " href="/welcome"
+                 style={{ fontSize: "1.1rem" }}
+                >
+                  Members
+                </Link>
+              </li>
+            )}
 
             <li className="nav-item">
-              <Link className="nav-link text-light" href="/about">
+              <Link className="nav-link text-light" href="/about"
+               style={{ fontSize: "1.1rem" }}
+              >
                 About
               </Link>
             </li>
 
+            {/* Dashboard فقط supplier */}
             {user?.role === "supplier" && (
               <li className="nav-item">
-                <Link className="nav-link text-light" href="/supplier">
+                <Link className="nav-link text-light" href="/supplier"
+                 style={{ fontSize: "1.1rem" }}
+                >
                   Dashboard
                 </Link>
               </li>
             )}
+
           </ul>
 
-          {/* RIGHT BUTTONS */}
+          {/* RIGHT SIDE */}
           <div className="d-flex gap-2 align-items-center">
 
             {!user ? (

@@ -51,12 +51,6 @@ export default function Footer() {
               </li>
 
               <li>
-                <Link href="/products" className="text-secondary text-decoration-none">
-                  Products
-                </Link>
-              </li>
-
-              <li>
                 <Link href="/about" className="text-secondary text-decoration-none">
                   About
                 </Link>

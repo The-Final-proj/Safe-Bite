@@ -1,5 +1,8 @@
 const router = require("express").Router();
 
+const authentication = require("../middleware/auth");
+const authorization = require("../middleware/authorizeRole");
+
 const {
   getMyProducts,
   supplierProfile,
@@ -7,12 +10,27 @@ const {
 } = require("../controllers/supplierController");
 
 // MY PRODUCTS
-router.get("/my-products", getMyProducts);
+router.get(
+  "/my-products",
+  authentication,
+  authorization("supplier", "admin"),
+  getMyProducts
+);
 
 // PROFILE
-router.get("/profile", supplierProfile);
+router.get(
+  "/profile",
+  authentication,
+  authorization("supplier", "admin"),
+  supplierProfile
+);
 
 // STATS
-router.get("/stats", supplierStats);
+router.get(
+  "/stats",
+  authentication,
+  authorization("supplier", "admin"),
+  supplierStats
+);
 
 module.exports = router;
