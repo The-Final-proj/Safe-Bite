@@ -22,7 +22,6 @@ const page = () => {
 
   return (
     <div>
-        <Navbar />
             <div className="min-vh-100 bg-light py-4 px-3">
                 <div className="row g-4 px-2">
                     <div className="col-12 col-lg-7">

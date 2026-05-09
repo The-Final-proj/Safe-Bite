@@ -1,8 +1,16 @@
 const Product = require("../models/productSchema");
 
+// ========================= SAFE PARSE
+const safeParse = (data) => {
+  try {
+    return data ? JSON.parse(data) : [];
+  } catch (e) {
+    return [];
+  }
+};
+
 // ========================= CREATE PRODUCT
 const createProduct = async (req, res) => {
- console.log("USER:", req.user);
   try {
     const {
       name,
@@ -15,25 +23,31 @@ const createProduct = async (req, res) => {
       customAllergens,
     } = req.body;
 
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
     const product = await Product.create({
       name,
       description,
       price,
       stock,
       category,
-      allergens: allergens ? JSON.parse(allergens) : [],
-      freeFrom: freeFrom ? JSON.parse(freeFrom) : [],
-      customAllergens: customAllergens ? JSON.parse(customAllergens) : [],
+
+      allergens: safeParse(allergens),
+      freeFrom: safeParse(freeFrom),
+      customAllergens: safeParse(customAllergens),
+
       image: req.file ? req.file.path : "",
-      supplier: req.user?._id || req.body.supplier,
+      supplier: req.user._id,
     });
 
     res.status(201).json(product);
   } catch (error) {
+    console.log("CREATE PRODUCT ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };
-
 // ========================= GET ALL PRODUCTS
 const getProducts = async (req, res) => {
   try {
