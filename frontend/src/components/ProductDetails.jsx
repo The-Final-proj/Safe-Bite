@@ -10,8 +10,7 @@ export default function ProductDetails({ product }) {
 
   const addToCart = async () => {
     try {
-      const memberId =
-        selectedMember === "me" ? null : selectedMember;
+      const memberId = selectedMember === "me" ? null : selectedMember;
 
       await API.post("/cart/add", {
         productId: product._id,
@@ -26,16 +25,16 @@ export default function ProductDetails({ product }) {
 
   return (
     <div className="container py-5">
-
       <div className="row g-4">
-
         {/* IMAGE */}
         <div className="col-md-5">
-
           <div className="card border-0 shadow-sm overflow-hidden">
-
             <img
-              src={`http://localhost:5000/uploads/${product.image}`}
+              src={
+                product.image?.startsWith("http")
+                  ? product.image
+                  : `http://localhost:5000/${product.image}`
+              }
               alt={product.name}
               className="w-100"
               style={{
@@ -43,44 +42,30 @@ export default function ProductDetails({ product }) {
                 objectFit: "cover",
               }}
             />
-
           </div>
-
         </div>
 
         {/* INFO */}
         <div className="col-md-7">
-
           <div className="card border-0 shadow-sm p-4 h-100">
-
             {/* TITLE */}
-            <h2 className="fw-bold mb-1">
-              {product.name}
-            </h2>
+            <h2 className="fw-bold mb-1">{product.name}</h2>
 
             <small className="text-muted d-block mb-2">
               {product.category}
             </small>
 
             {/* PRICE */}
-            <h3 className="text-success fw-bold mb-3">
-              {product.price} JOD
-            </h3>
+            <h3 className="text-success fw-bold mb-3">{product.price} JOD</h3>
 
             {/* DESCRIPTION */}
-            <p className="text-muted mb-4">
-              {product.description}
-            </p>
+            <p className="text-muted mb-4">{product.description}</p>
 
             {/* ALLERGENS */}
             <div className="mb-4">
-
-              <h6 className="fw-semibold mb-2">
-                Allergens
-              </h6>
+              <h6 className="fw-semibold mb-2">Allergens</h6>
 
               <div className="d-flex flex-wrap gap-2">
-
                 {product.allergens?.length > 0 ? (
                   product.allergens.map((a, i) => (
                     <span
@@ -95,24 +80,17 @@ export default function ProductDetails({ product }) {
                     No Allergens
                   </span>
                 )}
-
               </div>
-
             </div>
 
             {/* MEMBER SELECT */}
             <div className="mb-4">
-
-              <label className="form-label fw-semibold">
-                Buy for
-              </label>
+              <label className="form-label fw-semibold">Buy for</label>
 
               <select
                 className="form-select rounded-pill shadow-sm"
                 value={selectedMember}
-                onChange={(e) =>
-                  setSelectedMember(e.target.value)
-                }
+                onChange={(e) => setSelectedMember(e.target.value)}
               >
                 <option value="me">Me</option>
 
@@ -122,7 +100,6 @@ export default function ProductDetails({ product }) {
                   </option>
                 ))}
               </select>
-
             </div>
 
             {/* BUTTON */}
@@ -136,11 +113,8 @@ export default function ProductDetails({ product }) {
             >
               Add to Cart
             </button>
-
           </div>
-
         </div>
-
       </div>
     </div>
   );
