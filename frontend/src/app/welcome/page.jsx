@@ -37,7 +37,7 @@ const page = () => {
 
                         <div className="col-md-4 mb-3" key={index}>
 
-                            <Link href={"/products"} className="btn shadow-sm text-center p-4 rounded bg-body-secondary" style={{
+                            <Link href={`/products/member/${member._id}`} className="btn shadow-sm text-center p-4 rounded bg-body-secondary" style={{
 
                                 cursor: "pointer", transition: "0.2s"
 
