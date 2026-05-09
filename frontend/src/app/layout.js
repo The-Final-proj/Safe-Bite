@@ -7,6 +7,7 @@ import { DependentProvider } from "@/context/DependentContext";
 import { AllergensProvider } from "@/context/allergensContext";
 import { ToastContainer } from "react-toastify";
 import { CartProvider } from "@/context/CartContext";
+import { FavoriteProvider } from "@/context/FavoritesContext";
 
 export default function RootLayout({ children }) {
   return (
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
             <DependentProvider>
                 <AllergensProvider>
                     <CartProvider>
-                       <body>{children}</body>  
+                        <FavoriteProvider>
+                            <body>{children}</body>  
+                        </FavoriteProvider>
                     </CartProvider>
                     <ToastContainer
                     position="top-right"

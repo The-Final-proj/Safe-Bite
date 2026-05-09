@@ -24,7 +24,7 @@ export const DependentProvider = ({children}) => {
         getDependents();
     }, [count])
 
-    const addDependent = async (name, relation, ...allergens) => {
+    const addDependent = async (name, relation, allergens) => {
         try {
             const res = await API.patch("/users/dependents/add", {
                 name, relation, allergies: allergens
