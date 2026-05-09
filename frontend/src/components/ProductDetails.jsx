@@ -45,7 +45,6 @@ export default function ProductDetails({ product }) {
     const {addToCart} = useCart()
   return (
     <div>
-        <Navbar />
         <div className="container py-5">
 
         <div className="row g-4">
@@ -123,26 +122,6 @@ export default function ProductDetails({ product }) {
 
                 {/* MEMBER SELECT */}
                 <div className="mb-4">
-
-                <label className="form-label fw-semibold">
-                    Buy for
-                </label>
-
-                <select
-                    className="form-select rounded-pill shadow-sm"
-                    value={selectedMember}
-                    onChange={(e) =>
-                    setSelectedMember(e.target.value)
-                    }
-                >
-                    <option value="me">Me</option>
-
-                    {user?.dependent?.map((m) => (
-                    <option key={m._id} value={m._id}>
-                        {m.name}
-                    </option>
-                    ))}
-                </select>
 
                 </div>
 

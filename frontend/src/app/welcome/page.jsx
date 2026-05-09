@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
 import { useDependent } from "@/context/DependentContext";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 const page = () => {
@@ -10,6 +11,17 @@ const page = () => {
   // const dependents = ["Sara", "John", "Johnathan"]
   const { user } = useAuth();
   console.log(user);
+
+    const router = useRouter();
+
+    useEffect(() => {
+    if (user && user.role !== "user") {
+        router.replace("/");
+    }
+    }, [user]);
+
+    if (!user) return null;
+
   return (
     <div>
     <div className="bg-light min-vh-100 d-flex align-items-center justify-content-center">
@@ -34,7 +46,7 @@ const page = () => {
             }
             <div className="d-flex gap-3">
                 <Link href={"/welcome/add-member"} className='btn btn-outline-secondary px-4'>add new</Link>
-                <Link href={"/products"} className="btn btn-secondary px-3">
+                <Link href={"/"} className="btn btn-secondary px-3">
                     view all products →
                 </Link>
             </div>            

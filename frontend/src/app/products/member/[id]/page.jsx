@@ -8,7 +8,6 @@ import Link from "next/link";
 import API from "@/app/api";
 import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
  
 import { useAuth } from "@/context/AuthContext";
@@ -84,8 +83,6 @@ export default function ProductsPage() {
  
   return (
     <>
-      <Navbar />
- 
       <div
         className="min-vh-100 py-3"
         style={{ background: "linear-gradient(to bottom right, #f8f9fa, #eef2ff)" }}

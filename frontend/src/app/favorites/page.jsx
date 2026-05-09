@@ -12,7 +12,6 @@ const page = () => {
 
   return (
     <div>
-        <Navbar />
         <div className="min-vh-100 bg-ligh py-4 px-3">
             <div className="d-flex justify-content-between align-items-center px-2 mb-4 flex-wrap gap-2">
                 <div className='d-flex flex-column align-items-center'>
@@ -43,7 +42,7 @@ const page = () => {
                     <p className="mt-3 fs-6">
                         You haven't saved anything yet
                     </p>
-                    <Link href={"/products"} className='btn btn-dark btn-sm rounded-pill px-4 mt-1'>
+                    <Link href={"/"} className='btn btn-dark btn-sm rounded-pill px-4 mt-1'>
                         Browse Products
                     </Link>
                 </div>

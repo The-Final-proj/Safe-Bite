@@ -13,11 +13,6 @@ export default function Home() {
 
     const {user} = useAuth();
     const router = useRouter()
-
-    if (user?.role === "supplier") {
-        router.push("/supplier")
-    }
-
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
