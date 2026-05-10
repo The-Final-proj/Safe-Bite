@@ -1,5 +1,5 @@
 # SafeBite 🍽️🥜
----
+
 SafeBite is a full-stack food allergy management platform that helps users discover safe food products based on their allergies and dietary preferences.
 
 ---
