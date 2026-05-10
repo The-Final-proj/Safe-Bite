@@ -15,20 +15,32 @@ Suppliers can add/manage products
 ---
 🚀 Tech Stack
 
-Frontend
+*Frontend*
+
 Next.js
+
 React.js
+
 Bootstrap 5
+
 Context API
+
 Axios
 
-Backend
+*Backend*
+
 Node.js
+
 Express.js
+
 MongoDB
+
 Mongoose
+
 JWT Authentication
+
 Stripe Payment Gateway
+
 Multer (Image Upload)
 
 ---
