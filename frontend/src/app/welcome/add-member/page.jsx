@@ -94,7 +94,7 @@ const page = () => {
                 dependents.length !== 0 &&
                 <button className="btn btn-outline-danger" onClick={()=>removeAll()}>delete all</button>
             }
-            <Link href={"/products"} className='btn btn-dark mt-4'>view all products →</Link>
+            <Link href={"/"} className='btn btn-dark mt-4'>view all products →</Link>
 
         </div>
     </div>
