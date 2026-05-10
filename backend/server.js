@@ -20,7 +20,7 @@ app.use(
 app.use(express.json());
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://safebite2.netlify.app/",
   credentials: true
 }));
 
