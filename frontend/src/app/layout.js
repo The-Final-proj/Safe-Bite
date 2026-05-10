@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
             <CartProvider>
             <AllergensProvider>
               <CategoriesProvider>
+                 <BootstrapClient />  
                 <Navbar />
                     <FavoriteProvider>
                         {children}
