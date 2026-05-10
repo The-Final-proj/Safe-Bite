@@ -1,13 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import API from "@/app/api";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { useFavorite } from "@/context/FavoritesContext";
-import Navbar from "./Navbar";
 import Footer from "./Footer";
-
 const HeartIcon = ({ filled }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
     fill={filled ? '#dc3545' : 'none'} stroke="#dc3545" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -55,7 +52,7 @@ export default function ProductDetails({ product }) {
             <div className="card border-0 shadow-sm overflow-hidden">
 
                 <img
-                src={`http://localhost:5000/uploads/${product.image}`}
+                src={`http://localhost:5000/${product.image}`}
                 alt={product.name}
                 className="w-100"
                 style={{

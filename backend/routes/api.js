@@ -60,9 +60,6 @@ apiRouter.use(
 // =========================
 apiRouter.use("/payment", paymentRoutes);
 
-// =========================
-// Webhook route (IMPORTANT FIX)
-// =========================
-apiRouter.use("/payment/webhook", webhookRoutes);
+
 
 module.exports = apiRouter;

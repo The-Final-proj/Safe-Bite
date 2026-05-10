@@ -92,7 +92,7 @@ export default function ProductsPage() {
           <div className="bg-white rounded-4 shadow-sm p-3 mb-3">
             <div className="row align-items-center g-2">
               <div className="col-lg-6 d-flex gap-2 flex-wrap">
-                <Link href="/products" className="btn btn-dark rounded-pill px-3">
+                <Link href="/" className="btn btn-dark rounded-pill px-3">
                   Products
                 </Link>
                 <Link href="/cart" className="btn btn-outline-dark rounded-pill px-3">
