@@ -83,12 +83,12 @@ Backend: Render
 Database: MongoDB Atlas
 
 ---
-📁 Project Structure
+## 📁 Project Structure
 
+``` bash
 SafeBite/
 │
 ├── backend/
-│   │
 │   ├── controllers/
 │   │   ├── userController.js
 │   │   ├── supplierController.js
@@ -135,81 +135,16 @@ SafeBite/
 │   │   └── api.js
 │   │
 │   ├── uploads/
-│   │   
-│   │
-│   ├── .env
-│   ├── .gitignore
 │   ├── server.js
 │   └── package.json
-│
+
 ├── frontend/
-│   │
 │   ├── src/
-│   │   │
 │   │   ├── app/
-│   │   │   ├── layout.jsx
-│   │   │   ├── page.jsx
-│   │   │   ├── globals.css
-│   │   │   │
-│   │   │   ├── login/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── register/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── products/
-│   │   │   │   ├── page.jsx
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.jsx
-│   │   │   │
-│   │   │   ├── cart/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── favorites/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── orders/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── dependents/
-│   │   │   │   ├── page.jsx
-│   │   │   │   ├── add-member/
-│   │   │   │   │   └── page.jsx
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.jsx
-│   │   │   │
-│   │   │   ├── supplier/
-│   │   │   │   ├── page.jsx
-│   │   │   │   ├── products/
-│   │   │   │   │   └── page.jsx
-│   │   │   │   └── create-product/
-│   │   │   │       └── page.jsx
-│   │   │   
-│   │   │
 │   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── ProductCard.jsx
-│   │   │   ├── ProductDetails.jsx
-│   │   │   ├── DependentCard.jsx
-│   │   │   ├── DependentSelector.jsx
-│   │   │   ├── CardInCart
-│   │   │   ├── SearchBar.jsx
-│   │   │   ├── BootstrapClient.jsx
-│   │   │   ├── ProtectedRoute.jsx
-│   │   │   └── FavoriteCard.jsx
-│   │   │
-│   │   ├── context/
-│   │       ├── AuthContext.jsx
-│   │       ├── CartContext.jsx
-│   │       ├── DependentContext.jsx
-│   │       └── FavoriteContext.jsx
+│   │   └── context/
 │   ├── public/
-│   │   ├── images/
-│   │   └── logo.png
-│   │
 │   ├── next.config.js
 │   └── package.json
-│
-├── README.md
-└── .gitignore
+```
+
