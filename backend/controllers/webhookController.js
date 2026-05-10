@@ -3,8 +3,7 @@ const Payment = require("../models/paymentSchema");
 
 const stripeWebhook = async (req, res) => {
   const sig = req.headers["stripe-signature"];
-console.log("SESSION OBJECT:", session);
-console.log("SEARCHING FOR:", session.id);
+
   let event;
 
   try {
@@ -17,20 +16,24 @@ console.log("SEARCHING FOR:", session.id);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // ✅ نجاح الدفع
   if (event.type === "checkout.session.completed") {
-  const session = event.data.object;
+    const session = event.data.object;
 
-  console.log("SESSION ID:", session.id);
+    console.log("🔥 WEBHOOK HIT");
 
-  const updated = await Payment.findOneAndUpdate(
-    { stripeSessionId: session.id },
-    { status: "paid" },
-    { new: true }
-  );
+    const payment = await Payment.findOne({
+      stripeSessionId: session.id,
+    });
 
-  console.log("UPDATED PAYMENT:", updated);
-}
+    if (!payment) return res.json({ received: true });
+
+    payment.status = "paid";
+    await payment.save();
+
+    console.log("✅ PAYMENT UPDATED TO PAID");
+  }
+
+  res.json({ received: true });
 };
 
 module.exports = { stripeWebhook };

@@ -3,15 +3,15 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 
-
 const app = express();
 
 // ======================
-// Stripe Webhook (IMPORTANT - MUST BE BEFORE express.json)
+// Stripe Webhook (RAW BODY ONLY HERE)
 // ======================
 app.use(
   "/api/payment/webhook",
-  express.raw({ type: "application/json" })
+  express.raw({ type: "application/json" }),
+  require("./routes/webhookRoutes")
 );
 
 // ======================
@@ -19,38 +19,24 @@ app.use(
 // ======================
 app.use(express.json());
 
-
-
 app.use(cors({
   origin: "http://localhost:3000",
   credentials: true
 }));
 
-
-// ======================
-// Static files
-// ======================
+// static + db
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ======================
-// DB connection
-// ======================
-const db = require("./models/db");
+require("./models/db");
 
-// ======================
-// Routes
-// ======================
+// API routes
 const apiRouter = require("../backend/routes/api");
 app.use("/api", apiRouter);
 
-// ======================
-// Error handler
-// ======================
+// error handler
 app.use(require("./middleware/errorHandler"));
 
-// ======================
-// Server
-// ======================
+// server
 app.listen(process.env.PORT, () => {
   console.log(`app running on port ${process.env.PORT}`);
 });

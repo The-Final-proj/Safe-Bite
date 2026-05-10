@@ -1,36 +1,28 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
 const Payment = require("../models/paymentSchema");
-const Order = require("../models/orderSchema");
 
 const createCheckoutSession = async (req, res) => {
   try {
-    const { items, orderId } = req.body;
+    const { items } = req.body;
 
-    // 🔴 validation أقوى
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({ message: "No items provided" });
+    if (!items || items.length === 0) {
+      return res.status(400).json({ message: "No items" });
     }
 
-    if (!orderId) {
-      return res.status(400).json({ message: "orderId is required" });
-    }
+    console.log("🔥 CREATE SESSION HIT");
 
-    // حساب total
     const totalAmount = items.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
     );
 
-    // إنشاء Payment record
+    // create payment
     const payment = await Payment.create({
       user: req.user._id,
-      order: orderId,
       amount: totalAmount,
       status: "pending",
     });
 
-    // Stripe session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -41,30 +33,27 @@ const createCheckoutSession = async (req, res) => {
           product_data: {
             name: item.name,
           },
-          unit_amount: Math.round(item.price * 100),
+          unit_amount: Math.round(Number(item.price) * 100),
         },
-        quantity: item.quantity,
+        quantity: Number(item.quantity),
       })),
 
-      success_url: `${process.env.SUCCESS_URL}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: process.env.CANCEL_URL,
+      success_url: `${process.env.FRONTEND_URL}/success`,
+      cancel_url: `${process.env.FRONTEND_URL}/cancel`,
+
+      metadata: {
+        paymentId: payment._id.toString(),
+      },
     });
 
-    // ربط session بالـ payment
     payment.stripeSessionId = session.id;
     await payment.save();
 
-    return res.status(200).json({
-      url: session.url,
-      sessionId: session.id,
-    });
-  } catch (error) {
-    console.error("Stripe Error:", error);
+    res.json({ url: session.url });
 
-    return res.status(500).json({
-      message: "Payment failed",
-      error: error.message,
-    });
+  } catch (err) {
+    console.error("Stripe error:", err);
+    res.status(500).json({ message: err.message });
   }
 };
 

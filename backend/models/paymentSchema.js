@@ -2,27 +2,9 @@ const mongoose = require("mongoose");
 
 const paymentSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-
-    order: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
-      required: false,
-    },
-
-    amount: {
-      type: Number,
-      required: true,
-    },
-
-    currency: {
-      type: String,
-      default: "usd",
-    },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    order: { type: mongoose.Schema.Types.ObjectId, ref: "Order" },
+    amount: Number,
 
     status: {
       type: String,
@@ -30,9 +12,7 @@ const paymentSchema = new mongoose.Schema(
       default: "pending",
     },
 
-    stripeSessionId: {
-      type: String,
-    },
+    stripeSessionId: String,
   },
   { timestamps: true }
 );
