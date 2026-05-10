@@ -106,7 +106,7 @@ const page = () => {
                 >
                   {loading ? "Processing..." : "CHECK OUT"}
                 </button>
-                <Link href={"/products"} className="btn btn-light  border">
+                <Link href={"/"} className="btn btn-light  border">
                   Continue Shopping
                 </Link>
               </div>
