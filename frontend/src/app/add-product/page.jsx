@@ -104,13 +104,16 @@ export default function AddProduct() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/products", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const res = await fetch(
+        "https://safe-bite-m10p.onrender.com/api/products",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: data,
         },
-        body: data,
-      });
+      );
 
       const result = await res.json();
 

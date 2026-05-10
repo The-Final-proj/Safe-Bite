@@ -23,24 +23,39 @@ const FavoriteCard = ({id, image, name, price}) => {
     console.log(inCart)
 
   return (
-    <div className='bg-white rounded-3 border h-100 overflow-hidden position-relative'>
-        <button className="btn btn-sm position-absolute top-0 end-0 m-2 p-1" onClick={()=>removeFromFavorites(id)} title='Remove from Favorites'>
-            <HeartIcon filled />
+    <div className="bg-white rounded-3 border h-100 overflow-hidden position-relative">
+      <button
+        className="btn btn-sm position-absolute top-0 end-0 m-2 p-1"
+        onClick={() => removeFromFavorites(id)}
+        title="Remove from Favorites"
+      >
+        <HeartIcon filled />
+      </button>
+
+      <div
+        className="bg-secondary-subtle d-flex align-items center justify-content-center overflow-hidden"
+        style={{ height: 180 }}
+      >
+        <img
+          src={`https://safe-bite-m10p.onrender.com/${image}`}
+          className="w-100 h-100"
+          style={{ objectFit: "cover" }}
+        ></img>
+      </div>
+
+      <div className="p-3">
+        <div className="fw-semibold text-truncate">{name}</div>
+        <div className="text-muted small mb-3">{price} JOD</div>
+        <button
+          className={`btn btn-sm w-100 rounded-pill btn-${inCart ? "dark" : "success"}`}
+          disabled={inCart}
+          onClick={() => addToCart(id)}
+        >
+          {inCart ? "In Cart ✓" : "Add to Cart"}
         </button>
-
-        <div className="bg-secondary-subtle d-flex align-items center justify-content-center overflow-hidden" style={{height: 180}}>
-            <img src={`http://localhost:5000/${image}`} className='w-100 h-100' style={{objectFit: 'cover'}}></img>
-        </div>
-
-        <div className="p-3">
-            <div className="fw-semibold text-truncate">{name}</div>
-            <div className="text-muted small mb-3">{price} JOD</div>
-            <button className={`btn btn-sm w-100 rounded-pill btn-${inCart?"dark":"success"}`} disabled={inCart} onClick={()=>addToCart(id)}>{inCart? 'In Cart ✓' : 'Add to Cart'}</button>
-        </div>
-
+      </div>
     </div>
-
-  )
+  );
 }
 
 export default FavoriteCard

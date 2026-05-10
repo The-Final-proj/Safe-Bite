@@ -60,7 +60,7 @@ export default function ProductDetails({ product }) {
           <div className="col-md-5">
             <div className="card border-0 shadow-sm overflow-hidden">
               <img
-                src={`http://localhost:5000/${product.image}`}
+                src={`https://safe-bite-m10p.onrender.com/${product.image}`}
                 alt={product.name}
                 className="w-100"
                 style={{ height: "420px", objectFit: "cover" }}
@@ -77,9 +77,7 @@ export default function ProductDetails({ product }) {
                 {product.category}
               </small>
 
-              <h3 className="text-success fw-bold mb-3">
-                {product.price} JOD
-              </h3>
+              <h3 className="text-success fw-bold mb-3">{product.price} JOD</h3>
 
               <p className="text-muted mb-4">{product.description}</p>
 

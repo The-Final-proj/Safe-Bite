@@ -12,7 +12,7 @@ const CardInCart = ({ img, title, price, quantity, id }) => {
           style={{ width: 90, height: 80 }}
         >
           <img
-            src={`http://localhost:5000/${img}`}
+            src={`https://safe-bite-m10p.onrender.com/${img}`}
             alt={title}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
