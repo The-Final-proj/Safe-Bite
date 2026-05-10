@@ -75,8 +75,11 @@ Manage products
 🌍 Deployment
 
 Frontend: Netlify
+
 Backend: Render
+
 Database: MongoDB Atlas
+
 ---
 📁 Project Structure
 
