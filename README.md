@@ -76,12 +76,9 @@ Manage products
 ---
 🌍 Deployment
 
-Frontend: Netlify
+Frontend: Netlify : https://safebite2.netlify.app/
 
-Backend: Render
-
-Database: MongoDB Atlas
-
+Backend: Render : https://safe-bite-m10p.onrender.com/
 
 ## 📁 Project Structure
 
