@@ -13,7 +13,7 @@ const page = () => {
           <div className="col-md-6 d-none d-md-flex align-items-center justify-content-center bg-body-secondary">
             <div className="col-md-6 d-none d-md-flex align-items-center justify-content-center bg-body-secondary">
               <Image
-                src="/safebite_logo.png"
+                src="frontend/public/safebite_logo.png"
                 alt="SafeBite Logo"
                 width={350}
                 height={350}
