@@ -138,7 +138,7 @@ export default function Navbar() {
             ) : (
               <>
                 <span className="text-light small me-2">
-                  {user.username || "User"}
+                  {user.firstName}
                 </span>
 
                 <button
