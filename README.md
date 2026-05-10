@@ -1,3 +1,85 @@
+SafeBite 🍽️🥜
+
+SafeBite is a full-stack food allergy management platform that helps users discover safe food products based on their allergies and dietary preferences.
+
+The platform allows users to:
+
+Browse allergy-friendly food products
+Filter products by allergens and dietary restrictions
+Add products to cart and favorites
+Manage dependent family members
+Complete secure payments using Stripe
+Suppliers can add/manage products
+
+🚀 Tech Stack
+
+Frontend
+Next.js
+React.js
+Bootstrap 5
+Context API
+Axios
+
+Backend
+Node.js
+Express.js
+MongoDB
+Mongoose
+JWT Authentication
+Stripe Payment Gateway
+Multer (Image Upload)
+
+✨ Features
+
+👤 Authentication
+Register / Login
+JWT Authentication
+Role-based Authorization
+User / Supplier roles
+
+🛒 Shopping Cart
+Add to cart
+Remove from cart
+Update quantity
+Cart total calculation
+
+❤️ Favorites
+Add/remove favorite products
+Personalized saved products
+
+🍔 Product System
+Product details page
+Categories
+Allergy filtering
+Dietary filtering
+Search products
+
+👨‍👩‍👧 Dependents Management
+Users can create family members/dependents and assign allergies for safer shopping experiences.
+
+💳 Stripe Payments
+Stripe Checkout Session
+Secure online payments
+Payment success page
+Webhook integration
+
+🏪 Supplier Dashboard
+
+Suppliers can:
+Add products
+Upload product images
+Manage products
+
+📸 Screenshots
+
+🌍 Deployment
+
+Frontend: Netlify
+Backend: Render
+Database: MongoDB Atlas
+
+📁 Project Structure
+
 SafeBite/
 │
 ├── backend/
@@ -48,7 +130,7 @@ SafeBite/
 │   │   └── api.js
 │   │
 │   ├── uploads/
-│   │   └── images/
+│   │   
 │   │
 │   ├── .env
 │   ├── .gitignore
@@ -84,9 +166,6 @@ SafeBite/
 │   │   │   ├── orders/
 │   │   │   │   └── page.jsx
 │   │   │   │
-│   │   │   ├── profile/
-│   │   │   │   └── page.jsx
-│   │   │   │
 │   │   │   ├── dependents/
 │   │   │   │   ├── page.jsx
 │   │   │   │   ├── add-member/
@@ -100,18 +179,7 @@ SafeBite/
 │   │   │   │   │   └── page.jsx
 │   │   │   │   └── create-product/
 │   │   │   │       └── page.jsx
-│   │   │   │
-│   │   │   ├── admin/
-│   │   │   │   ├── page.jsx
-│   │   │   │   ├── users/
-│   │   │   │   │   └── page.jsx
-│   │   │   │   ├── suppliers/
-│   │   │   │   │   └── page.jsx
-│   │   │   │   └── products/
-│   │   │   │       └── page.jsx
-│   │   │   │
-│   │   │   └── dashboard/
-│   │   │       └── page.jsx
+│   │   │   
 │   │   │
 │   │   ├── components/
 │   │   │   ├── Navbar.jsx
@@ -120,12 +188,11 @@ SafeBite/
 │   │   │   ├── ProductDetails.jsx
 │   │   │   ├── DependentCard.jsx
 │   │   │   ├── DependentSelector.jsx
-│   │   │   ├── AllergyBadge.jsx
+│   │   │   ├── CardInCart
 │   │   │   ├── SearchBar.jsx
-│   │   │   ├── FilterSidebar.jsx
+│   │   │   ├── BootstrapClient.jsx
 │   │   │   ├── ProtectedRoute.jsx
-│   │   │   ├── Loader.jsx
-│   │   │   └── FavoriteButton.jsx
+│   │   │   └── FavoriteCard.jsx
 │   │   │
 │   │   ├── context/
 │   │       ├── AuthContext.jsx
