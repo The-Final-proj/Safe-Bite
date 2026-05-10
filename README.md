@@ -17,31 +17,14 @@ Suppliers can add/manage products
 
 *Frontend*
 
-Next.js
-
-React.js
-
-Bootstrap 5
-
-Context API
-
-Axios
+Next.js,React.js
+Bootstrap 5,Context API,Axios
 
 *Backend*
 
-Node.js
-
-Express.js
-
-MongoDB
-
-Mongoose
-
-JWT Authentication
-
-Stripe Payment Gateway
-
-Multer (Image Upload)
+Node.js,Express.js,
+MongoDB,Mongoose,JWT Authentication,
+Stripe Payment Gateway,Multer (Image Upload)
 
 ---
 ✨ Features
