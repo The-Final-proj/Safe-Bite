@@ -9,10 +9,5 @@ const {
 } = require("../controllers/paymentController");
 
 // ========================= CREATE CHECKOUT SESSION
-router.post(
-  "/create-session",
-  authentication,
-  createCheckoutSession
-);
-
+router.post("/create-session", authentication, createCheckoutSession);
 module.exports = router;

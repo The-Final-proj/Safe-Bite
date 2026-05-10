@@ -29,7 +29,7 @@ const FavoriteCard = ({id, image, name, price}) => {
         </button>
 
         <div className="bg-secondary-subtle d-flex align-items center justify-content-center overflow-hidden" style={{height: 180}}>
-            <img src={image} className='w-100 h-100' style={{objectFit: 'cover'}}></img>
+            <img src={`http://localhost:5000/${image}`} className='w-100 h-100' style={{objectFit: 'cover'}}></img>
         </div>
 
         <div className="p-3">

@@ -1,6 +1,5 @@
 'use client'
 import FavoriteCard from '@/components/FavoriteCard'
-import Navbar from '@/components/Navbar'
 import { useFavorite } from '@/context/FavoritesContext'
 import Link from 'next/link'
 import React from 'react'

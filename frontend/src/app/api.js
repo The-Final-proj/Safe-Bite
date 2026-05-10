@@ -11,4 +11,12 @@ API.interceptors.request.use((req) => {
     return req
 })
 
+API.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    console.log("API ERROR:", err.response?.data || err.message);
+    return Promise.reject(err);
+  }
+);
+
 export default API
