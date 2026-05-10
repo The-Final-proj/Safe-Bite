@@ -1,6 +1,7 @@
-SafeBite 🍽️🥜
-
+# SafeBite 🍽️🥜
+---
 SafeBite is a full-stack food allergy management platform that helps users discover safe food products based on their allergies and dietary preferences.
+
 ---
 The platform allows users to:
 
@@ -10,6 +11,7 @@ Add products to cart and favorites
 Manage dependent family members
 Complete secure payments using Stripe
 Suppliers can add/manage products
+
 ---
 🚀 Tech Stack
 
@@ -28,6 +30,7 @@ Mongoose
 JWT Authentication
 Stripe Payment Gateway
 Multer (Image Upload)
+
 ---
 ✨ Features
 
@@ -66,9 +69,13 @@ Webhook integration
 🏪 Supplier Dashboard
 
 Suppliers can:
+
 Add products
+
 Upload product images
+
 Manage products
+
 ---
 📸 Screenshots
 ---
