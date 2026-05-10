@@ -34,7 +34,7 @@ export default function ProductCard({ product }) {
           src={
             product.image?.startsWith("http")
               ? product.image
-              : `http://localhost:5000/${product.image}`
+              : `https://safe-bite-m10p.onrender.com/${product.image}`
           }
           alt={product.name}
           className="card-img-top"
