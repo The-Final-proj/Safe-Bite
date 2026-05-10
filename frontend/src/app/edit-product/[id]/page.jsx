@@ -30,7 +30,7 @@ export default function EditProduct() {
       setLoading(true);
 
       const res = await fetch(
-        `http://localhost:5000/api/products/${id}`
+        `https://safe-bite-m10p.onrender.com/api/products/${id}`,
       );
 
       const d = await res.json();
@@ -59,7 +59,7 @@ export default function EditProduct() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/products/${id}`,
+        `https://safe-bite-m10p.onrender.com/api/products/${id}`,
         {
           method: "PUT",
           headers: {
@@ -67,7 +67,7 @@ export default function EditProduct() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
-        }
+        },
       );
 
       const result = await res.json();

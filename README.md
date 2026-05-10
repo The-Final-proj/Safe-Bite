@@ -1,7 +1,8 @@
-SafeBite 🍽️🥜
+# SafeBite 🍽️🥜
 
 SafeBite is a full-stack food allergy management platform that helps users discover safe food products based on their allergies and dietary preferences.
 
+---
 The platform allows users to:
 
 Browse allergy-friendly food products
@@ -11,25 +12,22 @@ Manage dependent family members
 Complete secure payments using Stripe
 Suppliers can add/manage products
 
-🚀 Tech Stack
+---
+## 🚀 Tech Stack
 
-Frontend
-Next.js
-React.js
-Bootstrap 5
-Context API
-Axios
+*Frontend*
 
-Backend
-Node.js
-Express.js
-MongoDB
-Mongoose
-JWT Authentication
-Stripe Payment Gateway
-Multer (Image Upload)
+Next.js,React.js
+Bootstrap 5,Context API,Axios
 
-✨ Features
+*Backend*
+
+Node.js,Express.js,
+MongoDB,Mongoose,JWT Authentication,
+Stripe Payment Gateway,Multer (Image Upload)
+
+---
+## ✨ Features
 
 👤 Authentication
 Register / Login
@@ -66,24 +64,28 @@ Webhook integration
 🏪 Supplier Dashboard
 
 Suppliers can:
+
 Add products
+
 Upload product images
+
 Manage products
 
+---
 📸 Screenshots
-
+---
 🌍 Deployment
 
-Frontend: Netlify
-Backend: Render
-Database: MongoDB Atlas
+Frontend: Netlify : https://safebite2.netlify.app/
 
-📁 Project Structure
+Backend: Render : https://safe-bite-m10p.onrender.com/
 
+## 📁 Project Structure
+
+``` bash
 SafeBite/
 │
 ├── backend/
-│   │
 │   ├── controllers/
 │   │   ├── userController.js
 │   │   ├── supplierController.js
@@ -130,81 +132,16 @@ SafeBite/
 │   │   └── api.js
 │   │
 │   ├── uploads/
-│   │   
-│   │
-│   ├── .env
-│   ├── .gitignore
 │   ├── server.js
 │   └── package.json
-│
+
 ├── frontend/
-│   │
 │   ├── src/
-│   │   │
 │   │   ├── app/
-│   │   │   ├── layout.jsx
-│   │   │   ├── page.jsx
-│   │   │   ├── globals.css
-│   │   │   │
-│   │   │   ├── login/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── register/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── products/
-│   │   │   │   ├── page.jsx
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.jsx
-│   │   │   │
-│   │   │   ├── cart/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── favorites/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── orders/
-│   │   │   │   └── page.jsx
-│   │   │   │
-│   │   │   ├── dependents/
-│   │   │   │   ├── page.jsx
-│   │   │   │   ├── add-member/
-│   │   │   │   │   └── page.jsx
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.jsx
-│   │   │   │
-│   │   │   ├── supplier/
-│   │   │   │   ├── page.jsx
-│   │   │   │   ├── products/
-│   │   │   │   │   └── page.jsx
-│   │   │   │   └── create-product/
-│   │   │   │       └── page.jsx
-│   │   │   
-│   │   │
 │   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── ProductCard.jsx
-│   │   │   ├── ProductDetails.jsx
-│   │   │   ├── DependentCard.jsx
-│   │   │   ├── DependentSelector.jsx
-│   │   │   ├── CardInCart
-│   │   │   ├── SearchBar.jsx
-│   │   │   ├── BootstrapClient.jsx
-│   │   │   ├── ProtectedRoute.jsx
-│   │   │   └── FavoriteCard.jsx
-│   │   │
-│   │   ├── context/
-│   │       ├── AuthContext.jsx
-│   │       ├── CartContext.jsx
-│   │       ├── DependentContext.jsx
-│   │       └── FavoriteContext.jsx
+│   │   └── context/
 │   ├── public/
-│   │   ├── images/
-│   │   └── logo.png
-│   │
 │   ├── next.config.js
 │   └── package.json
-│
-├── README.md
-└── .gitignore
+```
+

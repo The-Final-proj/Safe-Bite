@@ -24,18 +24,18 @@ export default function SupplierDashboard() {
       setLoading(true);
 
       const res1 = await fetch(
-        "http://localhost:5000/api/supplier/my-products",
+        "https://safe-bite-m10p.onrender.com/api/supplier/my-products",
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       const data1 = await res1.json();
 
       const res2 = await fetch(
-        "http://localhost:5000/api/supplier/stats",
+        "https://safe-bite-m10p.onrender.com/api/supplier/stats",
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       const data2 = await res2.json();
 
@@ -50,7 +50,7 @@ export default function SupplierDashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/products/${id}`, {
+      await fetch(`https://safe-bite-m10p.onrender.com/api/products/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -72,52 +72,44 @@ export default function SupplierDashboard() {
 
   return (
     <div className="bg-light d-flex flex-column min-vh-100">
-
       {/* HEADER */}
       <div className="bg-white border-bottom">
         <div className="container py-3 d-flex justify-content-between align-items-center">
-
           <div>
             <h3 className="fw-bold mb-0">Supplier Dashboard</h3>
-            <small className="text-muted">
-              Manage your products easily
-            </small>
+            <small className="text-muted">Manage your products easily</small>
           </div>
 
           <Link href="/add-product" className="btn btn-dark px-4">
             + Add Product
           </Link>
-
         </div>
       </div>
 
       {/* CONTENT */}
       <div className="container py-4 flex-grow-1">
-
         {/* STATS */}
         <div className="row mb-4">
-
           <div className="col-md-4">
             <div className="card shadow-sm border-0 text-center">
               <div className="card-body">
                 <h6 className="text-muted">Total Products</h6>
-                <h2 className="fw-bold">
-                  {stats?.totalProducts || 0}
-                </h2>
+                <h2 className="fw-bold">{stats?.totalProducts || 0}</h2>
               </div>
             </div>
           </div>
-
         </div>
 
         {/* PRODUCTS */}
         <div className="row g-4">
-
           {loading
             ? [...Array(6)].map((_, i) => (
                 <div key={i} className="col-md-4">
                   <div className="card shadow-sm border-0">
-                    <div className="bg-secondary" style={{ height: "180px" }}></div>
+                    <div
+                      className="bg-secondary"
+                      style={{ height: "180px" }}
+                    ></div>
                     <div className="card-body">
                       <div className="placeholder col-6 mb-2"></div>
                       <div className="placeholder col-4"></div>
@@ -127,12 +119,10 @@ export default function SupplierDashboard() {
               ))
             : products.map((p) => (
                 <div key={p._id} className="col-md-4">
-
                   <div className="card shadow-sm border-0 h-100 position-relative">
-
                     {/* IMAGE */}
                     <img
-                      src={`http://localhost:5000/${p.image}`}
+                      src={`https://safe-bite-m10p.onrender.com/${p.image}`}
                       className="card-img-top"
                       style={{
                         height: "200px",
@@ -147,20 +137,14 @@ export default function SupplierDashboard() {
 
                     {/* BODY */}
                     <div className="card-body">
-
                       <h5 className="fw-bold">{p.name}</h5>
 
-                      <p className="text-muted mb-3">
-                        {p.price} JOD
-                      </p>
+                      <p className="text-muted mb-3">{p.price} JOD</p>
 
                       <div className="d-flex gap-2">
-
                         <button
                           className="btn btn-outline-dark btn-sm w-50"
-                          onClick={() =>
-                            router.push(`/edit-product/${p._id}`)
-                          }
+                          onClick={() => router.push(`/edit-product/${p._id}`)}
                         >
                           Edit
                         </button>
@@ -171,23 +155,16 @@ export default function SupplierDashboard() {
                         >
                           Delete
                         </button>
-
                       </div>
-
                     </div>
-
                   </div>
-
                 </div>
               ))}
-
         </div>
-
       </div>
 
       {/* FOOTER */}
       <Footer />
-
     </div>
   );
 }
